@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');
+@import 'vars';
+
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body{
+    height: 100%;
+}
+
+body{
+    overflow-x:hidden;
+    background-color: $bg_color;
+    font-family: $font;
+    color: $primary_color;
+    margin: 0;
+    &.lock{
+        overflow: hidden;
+    }
+}
+
+html{
+    box-sizing: border-box;
+}
+
+section{
+    overflow: hidden;
+    position: relative;
+}
+
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+ul[class],
+ol[class]{
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl{
+    margin: 0;
+    font-size: inherit;
+}
+
+ul,li[class]{
+    list-style: none;
+}
+
+img{
+    width: 100%;
+}
+
+input,
+button,
+textarea,
+select{
+    font: inherit;
+    border: none;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea{
+    border: none;
+    padding: $pd_input;
+    border-radius: $pd_input;
+    font-size: $input_font_size;
+    margin-bottom: $pd-input;
+    background-color: $bg_color_lighter;
+    color: $secondary_color;
+    resize:none;
+}
+
+button{
+    border: none;
+    padding: $pd-input;
+    border-radius: $pd-input;
+    font-size: $input_font_size;
+    background-color: $primary_color;
+    color: $bg_color;
+    font-weight: $medium_font_weight;
+    cursor: pointer;
+}

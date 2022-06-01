@@ -1,0 +1,36 @@
+// colors
+$primary_color: #202020;
+$secondary_color: #808080;
+$bg_color: #FFF;
+$bg_color_lighter: #E4E4E4;
+$note_color: #bc243c;
+// typography
+$font: 'Montserrat', sans-serif;
+$big_font_size: 46px;
+$h1_font_size: 36px;
+$h2_font_size: 32px;
+$h3_font_size: 22px;
+$p_font_size: 15px;
+$input_font_size: 14px;
+$bolder_font_weight: 800;
+$bold_font_weight: 700;
+$medium_font_weight: 600;
+$light_font_weight: 500;
+$lighter_font_weight: 400;
+// margin and padding
+$mb_auto: 0 auto;
+$pd_big: 130px 0;
+$pd_medium: 120px 0;
+$pd_small: 40px 0;
+$pd_block: 40px;
+$pd_input: 13px;
+$pd_button: 4px 27px;
+// z-index
+$z_tooltip: 10;
+$z_fixed: 100;
+$z_modal: 999;
+$z_background: -2;
+// media breakpoints
+$breakpoint_desktop: 1550px;
+$breakpoint_tablet: 1030px;
+$breakpoint_phone: 700px;
