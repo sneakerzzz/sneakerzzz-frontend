@@ -10,8 +10,17 @@ function Login() {
 
     return (
         <>
-            <Sidebar language={language} step={step} />
-            <StepOne language={language} step={step} setStep={setStep} />
+            {
+                step === 1 ?
+                    (
+                        <>
+                            <Sidebar language={language} step={step} />
+                            <StepOne language={language} step={step} setStep={setStep} />
+                        </>
+                    )
+                    :
+                    null
+            }
         </>
     )
 }

@@ -15,7 +15,8 @@ const lang = [
             successfulLangChange: "Language has been changed successfully",
             sessionNotFound: "There was an error during request",
             serverIsNotAvailable: "Server is not available",
-            error: 'Error'
+            error: 'Error',
+            passwordsDoNotMatch: 'Passwords do not match'
         },
         login: {
             stepOne: {
@@ -56,16 +57,6 @@ const lang = [
                 }
             },
             stepThree: {
-                title: "Set your fullname",
-                inputs: {
-                    fullname: "Fullname",
-                },
-                buttons: {
-                    done: "Done",
-                    skip: "Skip"
-                }
-            },
-            stepFour: {
                 title: "Choose your profile language",
                 inputs: {
                     language: "Select language"
@@ -109,7 +100,8 @@ const lang = [
             successfulLangChange: "Язык аккаунта был изменен успешно",
             sessionNotFound: "Произошла ошибка в ходе запроса",
             serverIsNotAvailable: "Сервер недоступен",
-            error: 'Ошибка'
+            error: 'Ошибка',
+            passwordsDoNotMatch: 'Пароли не совпадают',
         },
         login: {
             stepOne: {
@@ -150,16 +142,6 @@ const lang = [
                 }
             },
             stepThree: {
-                title: "Настройте ФИО",
-                inputs: {
-                    fullname: "ФИО"
-                },
-                buttons: {
-                    done: "Готово",
-                    skip: "Пропустить"
-                }
-            },
-            stepFour: {
                 title: "Выберите язык",
                 inputs: {
                     language: "Выберите язык"

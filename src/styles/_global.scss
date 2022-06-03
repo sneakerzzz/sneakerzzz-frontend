@@ -2,8 +2,8 @@
 
 aside{
     width: 340px;
-    position: absolute;
-    height: calc(100vh - 60px);
+    position: fixed;
+    height: calc(100vh - 100px);
     bottom: 0;
     left: 0;
 }
@@ -11,7 +11,7 @@ aside{
 .container{
     margin: $mb_auto;
     padding: 0 $pd_block;
-    max-width: 1330px;
+    max-width: 1530px;
 }
 
 .title{
@@ -40,7 +40,7 @@ aside{
 }
 
 .sub-info{
-    font-size: $p_font_size;
+    font-size: $input_font_size;
     font-weight: $light_font_weight;
     margin-top: 5px;
     color: $primary_color;

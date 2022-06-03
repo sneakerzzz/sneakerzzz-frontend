@@ -41,7 +41,7 @@
 .login{
     margin-left: 340px;
     &__form{
-        width: 600px;
+        max-width: 600px;
         &-input{
             & input{
                 width: 100%;
@@ -49,6 +49,76 @@
         }
         &-button{
             width: 100%;
+        }
+        &-note{
+            float: right;
+            margin-top: 15px;
+        }
+    }
+}
+
+.register{
+    margin-left: 340px;
+    &__form{
+        max-width: 600px;
+        &-input{
+            & input{
+                width: 100%;
+            }
+        }
+        &-select{
+            & select{
+                width: 100%;
+            }
+        }
+        &-button{
+            width: 100%;
+        }
+        &-note{
+            float: right;
+            margin-top: 15px;
+        }
+        // &-preview{
+            
+        // }
+        &-img{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            & img{
+                border-radius: 50%;
+                width: 300px;
+                height: 300px;
+            }
+        }
+    }
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    & .header__inner{
+        padding: $pd_small;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    & .header__account{
+        &-img{
+            & img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+        }
+    }
+    & .header__logo{
+        &-title{
+            margin-bottom: 0;
         }
     }
 }

@@ -88,7 +88,7 @@ a{
 
 input[type="text"],
 input[type="password"],
-input[type="file"],
+select,
 textarea{
     border: none;
     padding: $pd_input;
@@ -99,6 +99,28 @@ textarea{
     color: $secondary_color;
     resize:none;
 }
+
+input[type="file"]{
+    border: none;
+    font-size: $input_font_size;
+    margin-bottom: $pd-input;
+    color: $secondary_color;
+    resize:none;
+    padding: $pd_input;
+    &::-webkit-file-upload-button{
+        border: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-size: $input_font_size;
+        background-color: $bg_color_lighter;
+        color: $primary_color;
+        font-weight: $medium_font_weight;
+        cursor: pointer;
+        margin-right: 20px;
+        display: none;
+    }
+}
+
 
 button{
     border: none;

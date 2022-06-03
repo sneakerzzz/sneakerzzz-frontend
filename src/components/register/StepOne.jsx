@@ -1,79 +1,84 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios'
-import { Link, useNavigate } from "react-router-dom";
-import Cookies from 'universal-cookie'
+import { Link } from "react-router-dom";
 import api from "../../constans/api";
 
 
-function StepOne({ language, step, setStep }) {
-
-    const cookies = new Cookies()
-    const history = useNavigate()
+function StepOne({ language, setStep, setCookie }) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [lang, setlang] = useState('')
     const [requestResult, setRequestResult] = useState({})
+
+    useEffect(() => {
+        setlang(window.navigator.language.split("-")[0])
+    }, [])
 
     function registerRequest(e) {
         e.preventDefault()
         setRequestResult({})
-        axios.post(`${api.url}/api/account/register`, {
-            username: username,
-            password: password
-        }).then(response => {
-            console.log(response);
-            if (response.data.success) {
-                if (response.data.message === 'Login successful') {
-                    setRequestResult({ message: language.notification.successfulLogin, success: true })
+        if (confirmPassword === password) {
+            axios.post(`${api.url}/api/account/register`, {
+                username: username,
+                password: password,
+                lang: lang
+            }).then(response => {
+                if (response.data.success) {
+                    if (response.data.message === 'Registration successful') {
+                        setRequestResult({ message: language.notification.successfulRegister, success: true })
+                    }
+                    setCookie(response.data.sessionID)
+                    setStep(2)
+                    setUsername('')
+                    setPassword('')
+                    setConfirmPassword('')
+                } else {
+                    if (response.data.message === 'Error') {
+                        setRequestResult({ message: language.notification.error, success: false })
+                    }
+                    if (response.data.message === 'Missing fields') {
+                        setRequestResult({ message: language.notification.missingFields, success: false })
+                    }
+                    if (response.data.message === 'Username already exists') {
+                        setRequestResult({ message: language.notification.usernameAlreadyExists, success: false })
+                    }
+                    if (response.data.message === 'Passwords do not match') {
+                        setRequestResult({ message: language.notification.passwordsDoNotMatch, success: false })
+                    }
                 }
-                cookies.set('sessionID', response.data.sessionID, {
-                    path: '/',
-                    maxAge: 3600 * 24 * 265 * 100
-                })
-                setStep(1)
-                setUsername('')
-                setPassword('')
-                history('/')
-            } else {
-                if (response.data.message === 'Error') {
-                    setRequestResult({ message: language.notification.error, success: false })
-                }
-                if (response.data.message === 'Missing fields') {
-                    setRequestResult({ message: language.notification.missingFields, success: false })
-                }
-                if (response.data.message === 'User not found') {
-                    setRequestResult({ message: language.notification.userNotFound, success: false })
-                }
-                if (response.data.message === 'Incorrect password') {
-                    setRequestResult({ message: language.notification.incorrectPassword, success: false })
-                }
-            }
-        }).catch(error => {
-            console.log(error);
-            setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
-        })
+            }).catch(error => {
+                setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
+            })
+        } else {
+            setRequestResult({ message: language.notification.passwordsDoNotMatch, success: false })
+        }
     }
 
     console.log(requestResult);
 
     return (
-        <section className="login">
+        <section className="register">
             <div className="container">
-                <div className="login__inner inner">
-                    <div className="login__title title">
-                        <h1>{language.login.stepOne.title}</h1>
+                <div className="register__inner inner">
+                    <div className="register__title title">
+                        <h1>{language.register.stepOne.title}</h1>
                     </div>
-                    <form onSubmit={(e) => registerRequest(e)} className="login__form">
-                        <div className="login__form-input">
-                            <input value={username} type="text" onChange={(e) => setUsername(e.target.value)} placeholder={language.login.stepOne.inputs.username} />
+                    <form onSubmit={(e) => registerRequest(e)} className="register__form">
+                        <div className="register__form-input">
+                            <input value={username} type="text" onChange={(e) => setUsername(e.target.value)} placeholder={language.register.stepOne.inputs.username} />
                         </div>
-                        <div className="login__form-input">
-                            <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder={language.login.stepOne.inputs.password} />
+                        <div className="register__form-input">
+                            <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder={language.register.stepOne.inputs.password} />
                         </div>
-                        <button onClick={(e) => registerRequest(e)} className="login__form-button">{language.login.stepOne.buttons.login}</button>
-                        <div className="login__form-note">
-
+                        <div className="register__form-input">
+                            <input value={confirmPassword} type="password" onChange={(e) => setConfirmPassword(e.target.value)} placeholder={language.register.stepOne.inputs.confirmPassword} />
                         </div>
+                        <button onClick={(e) => registerRequest(e)} className="register__form-button">{language.register.stepOne.buttons.register}</button>
+                        <Link to="/login" className="register__form-note sub-info">
+                            <p>{language.register.stepOne.buttons.alreadyHaveAccount}</p>
+                        </Link>
                     </form>
                 </div>
             </div>

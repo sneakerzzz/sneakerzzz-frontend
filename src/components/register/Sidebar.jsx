@@ -6,6 +6,9 @@ function SideBar({ language, step }) {
         },
         {
             step: language.register.stepTwo.title
+        },
+        {
+            step: language.register.stepThree.title
         }
     ]
 

@@ -21,7 +21,6 @@ function StepOne({ language, step, setStep }) {
             username: username,
             password: password
         }).then(response => {
-            console.log(response);
             if (response.data.success) {
                 if (response.data.message === 'Login successful') {
                     setRequestResult({ message: language.notification.successfulLogin, success: true })
@@ -34,6 +33,7 @@ function StepOne({ language, step, setStep }) {
                 setUsername('')
                 setPassword('')
                 history('/')
+                document.location.reload()
             } else {
                 if (response.data.message === 'Error') {
                     setRequestResult({ message: language.notification.error, success: false })
@@ -49,7 +49,6 @@ function StepOne({ language, step, setStep }) {
                 }
             }
         }).catch(error => {
-            console.log(error);
             setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
         })
     }
@@ -71,9 +70,9 @@ function StepOne({ language, step, setStep }) {
                             <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder={language.login.stepOne.inputs.password} />
                         </div>
                         <button onClick={(e) => loginRequest(e)} className="login__form-button">{language.login.stepOne.buttons.login}</button>
-                        <div className="login__form-note">
-
-                        </div>
+                        <Link to="/register" className="login__form-note sub-info">
+                            <p>{language.login.stepOne.buttons.dontHaveAccount}</p>
+                        </Link>
                     </form>
                 </div>
             </div>
