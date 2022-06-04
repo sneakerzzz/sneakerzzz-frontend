@@ -1,6 +1,6 @@
 import api from "../../constans/api"
 
-function Header({user}) {
+function Header({ user }) {
     return (
         <header>
             <div className="container">
@@ -18,15 +18,15 @@ function Header({user}) {
                         </div>
                         {
                             user ?
-                            (
-                                <div className="header__account">
-                                    <div className="header__account-img">
-                                        <img src={`${api.url}/${user.img}`} alt="" />
+                                (
+                                    <div className="header__account">
+                                        <div className="header__account-img">
+                                            <img title={user.username} src={`${api.url}/${user.img}`} alt="" />
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                            :
-                            null
+                                )
+                                :
+                                null
                         }
                     </div>
                 </div>

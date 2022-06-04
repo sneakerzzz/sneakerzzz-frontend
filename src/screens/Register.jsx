@@ -1,6 +1,7 @@
 import { useLanguage } from "../hooks";
 import { useState } from "react";
 import { StepOne, Sidebar, StepTwo, StepThree } from "../components/register";
+import {Helmet} from 'react-helmet'
 
 function Register() {
 
@@ -11,6 +12,10 @@ function Register() {
 
     return (
         <>
+            <Helmet>
+                <title>Register || Sneakerzzz</title>
+                <meta name="description" content="Register your account" />
+            </Helmet>
             {
                 step === 1 ?
                     (

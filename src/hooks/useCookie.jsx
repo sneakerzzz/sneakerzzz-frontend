@@ -9,23 +9,27 @@ function useCookie() {
     const cookies = new Cookies()
     const cookie = cookies.get('sessionID')
     const [user, setUser] = useState()
+    const [userLoading, setUserLoading] = useState(false)
 
     useEffect(() => {
         axios.post(`${api.url}/api/account/login-session`, {
             sessionID: cookie
         }).then(response => {
+            setUserLoading(true)
             console.log(response);
             if (response.data.success) {
                 setUser(response.data.data)
             } else {
                 setUser()
             }
+        }).catch(err => {
+            setUserLoading(true)
         })
     }, [cookie])
 
 
 
-    return user
+    return [user, userLoading]
 }
 
 export default useCookie

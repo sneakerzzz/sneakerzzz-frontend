@@ -6,22 +6,33 @@ import { Header } from './components/navigation';
 
 function App() {
 
-  const user = useCookie()
+  const [user, userLoading] = useCookie()
   console.log(user);
 
   return (
     <>
       <BrowserRouter>
-        <Header user={user} />
-        <main>
-          <Routes>
-            <Route path="/" />
-            <Route path='/catalog' />
-            <Route path="/login" element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path="*" />
-          </Routes>
-        </main>
+        {
+          userLoading ?
+            (
+              <>
+                <Header user={user} />
+                <main>
+                  <Routes>
+                    <Route path="/" />
+                    <Route path='/catalog' />
+                    <Route path="/login" element={<Login />} />
+                    <Route path='/register' element={<Register />} />
+                    <Route path="*" />
+                  </Routes>
+                </main>
+              </>
+            )
+            :
+            (
+              <div className="loading"></div>
+            )
+        }
       </BrowserRouter>
     </>
   );

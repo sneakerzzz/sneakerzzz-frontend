@@ -1,6 +1,7 @@
 import { useLanguage } from "../hooks";
 import { useState } from "react";
 import { StepOne, Sidebar } from "../components/login";
+import { Helmet } from 'react-helmet'
 
 function Login() {
 
@@ -10,6 +11,10 @@ function Login() {
 
     return (
         <>
+            <Helmet>
+                <title>Login || Sneakerzzz</title>
+                <meta name="description" content="Login to your account" />
+            </Helmet>
             {
                 step === 1 ?
                     (
