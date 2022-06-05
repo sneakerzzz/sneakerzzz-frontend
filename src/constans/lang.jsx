@@ -67,20 +67,15 @@ const lang = [
                 }
             }
         },
-        userDashboard: {
-            asideBar: {
-                links: {
-                    settings: "Settings",
-                    packages: "Packages",
-                    logOut: "Log out",
-                    main: "Home",
-                    lessons: "Lessons",
-                    takeTest: "Take a test",
-                    askQuestion: "Ask a question"
-                }
+        account: {
+            account: {
+                title: 'Account'
             },
-            dashboard: {
-
+            password: {
+                title: 'Password'
+            },
+            payment: {
+                title: 'Payment'
             }
         }
     },

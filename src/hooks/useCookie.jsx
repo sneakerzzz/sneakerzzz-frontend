@@ -29,7 +29,7 @@ function useCookie() {
 
 
 
-    return [user, userLoading]
+    return [user, userLoading, cookie]
 }
 
 export default useCookie
