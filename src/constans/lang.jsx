@@ -16,7 +16,8 @@ const lang = [
             sessionNotFound: "There was an error during request",
             serverIsNotAvailable: "Server is not available",
             error: 'Error',
-            passwordsDoNotMatch: 'Passwords do not match'
+            passwordsDoNotMatch: 'Passwords do not match',
+            sessionDeleted: 'Session was deleted successfully'
         },
         login: {
             stepOne: {
@@ -76,6 +77,9 @@ const lang = [
             },
             payment: {
                 title: 'Payment'
+            },
+            buttons: {
+                signout: 'Sign out'
             }
         }
     },
@@ -97,6 +101,7 @@ const lang = [
             serverIsNotAvailable: "Сервер недоступен",
             error: 'Ошибка',
             passwordsDoNotMatch: 'Пароли не совпадают',
+            sessionDeleted: 'Сессия была удалена успешно'
         },
         login: {
             stepOne: {
@@ -147,20 +152,18 @@ const lang = [
                 }
             }
         },
-        userDashboard: {
-            asideBar: {
-                links: {
-                    settings: "Настройки",
-                    packages: "Пакеты услуг",
-                    logOut: "Выйти",
-                    main: "Главная",
-                    lessons: "Уроки",
-                    takeTest: "Пройти тест",
-                    askQuestion: "Задать вопрос"
-                }
+        account: {
+            account: {
+                title: 'Аккаунт'
             },
-            dashboard: {
-                
+            password: {
+                title: 'Пароль'
+            },
+            payment: {
+                title: 'Платежи'
+            },
+            buttons: {
+                signout: 'Выйти'
             }
         }
     }

@@ -8,7 +8,7 @@ function Register() {
     const [step, setStep] = useState(1)
     const [cookie, setCookie] = useState()
 
-    const language = useLanguage()
+    const language = useLanguage({})
 
     return (
         <>

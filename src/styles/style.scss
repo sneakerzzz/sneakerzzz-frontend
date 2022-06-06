@@ -2,23 +2,37 @@
 @import 'vars';
 @import 'global';
 
-.aside{
-    &__steps{
+.aside {
+    width: 340px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: $z_fixed;
+    &__inner{
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 120px);
+        justify-content: space-between;
+    }
+    &__steps {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         overflow: auto;
     }
-    &__step{
+
+    &__step {
         display: flex;
         align-items: center;
         width: 100%;
         margin-bottom: 30px;
-        &-left{
+
+        &-left {
             margin-right: 35px;
         }
-        &-circle{
+
+        &-circle {
             border-radius: 50%;
             background-color: $bg_color;
             color: $secondary_color;
@@ -29,64 +43,122 @@
             padding: 5px;
             width: 30px;
             height: 30px;
-            &.active{
+
+            &.active {
                 background-color: $primary_color;
                 color: $bg_color;
                 border: 1px solid $primary_color
             }
         }
     }
+
+    &__nav {
+        &-link {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 30px;
+            color: $secondary_color;
+
+            &.active {
+                color: $primary_color;
+                border-left: 5px solid $primary_color;
+
+                & .aside__nav-link-img svg {
+                    fill: $primary_color;
+                }
+            }
+
+            &-img {
+                margin-right: 20px;
+                display: flex;
+                align-items: center;
+
+                & svg {
+                    width: 23px;
+                    height: 23px;
+                    fill: $secondary_color;
+                }
+            }
+        }
+    }
+
+    &__signout{
+        cursor: pointer;
+        justify-self: flex-end;
+        display: flex;
+        align-items: center;
+        padding: 30px;
+        &-img{
+            margin-right: 20px;
+            & svg{
+                width: 35px;
+                height: 35px;
+            }
+        }
+    }
 }
 
-.login{
+.login {
     margin-left: 340px;
-    &__form{
+
+    &__form {
         max-width: 600px;
-        &-input{
-            & input{
+
+        &-input {
+            & input {
                 width: 100%;
             }
         }
-        &-button{
+
+        &-button {
             width: 100%;
         }
-        &-note{
+
+        &-note {
             float: right;
             margin-top: 15px;
         }
     }
 }
 
-.register{
+.register {
     margin-left: 340px;
-    &__form{
+
+    &__form {
         max-width: 600px;
-        &-input{
-            & input{
+
+        &-input {
+            & input {
                 width: 100%;
             }
         }
-        &-select{
-            & select{
+
+        &-select {
+            & select {
                 width: 100%;
             }
         }
-        &-button{
+
+        &-button {
             width: 100%;
         }
-        &-note{
+
+        &-note {
             float: right;
             margin-top: 15px;
         }
+
         // &-preview{
-            
+
         // }
-        &-img{
+        &-img {
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 30px;
-            & img{
+
+            & img {
                 border-radius: 50%;
                 width: 300px;
                 height: 300px;
@@ -95,35 +167,53 @@
     }
 }
 
-header{
+header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
-    & .header__inner{
+    z-index: $z_modal;
+    & .header__inner {
+    height: 120px;
         padding: $pd_small;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
-    & .header__account{
+
+    & .header__account {
         position: relative;
-        &-img{
+
+        &-img {
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 10px;
-            & img{
+
+            & img {
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;
             }
         }
     }
-    & .header__logo{
-        &-title{
+
+    & .header__logo {
+        &-title {
             margin-bottom: 0;
         }
     }
+}
+
+.settings{
+    margin-left: 340px;
+}
+
+.password{
+    margin-left: 340px;
+}
+
+.payment{
+    margin-left: 340px;
 }

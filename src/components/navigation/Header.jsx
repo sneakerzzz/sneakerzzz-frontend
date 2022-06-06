@@ -1,4 +1,5 @@
 import api from "../../constans/api"
+import { Link } from "react-router-dom"
 
 function Header({ user }) {
     return (
@@ -7,9 +8,9 @@ function Header({ user }) {
                 <div className="header__inner">
                     <div className="header__left">
                         <div className="header__logo">
-                            <div className="header__logo-title title">
+                            <Link to='/' className="header__logo-title title">
                                 <h3>Sneakerzzz.</h3>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="header__right">
@@ -19,11 +20,11 @@ function Header({ user }) {
                         {
                             user ?
                                 (
-                                    <div className="header__account">
+                                    <Link to="/account" className="header__account">
                                         <div className="header__account-img">
                                             <img title={user.username} src={`${api.url}/${user.img}`} alt="" />
                                         </div>
-                                    </div>
+                                    </Link>
                                 )
                                 :
                                 null

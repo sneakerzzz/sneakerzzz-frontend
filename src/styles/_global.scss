@@ -1,13 +1,5 @@
 @import 'vars';
 
-aside{
-    width: 340px;
-    position: fixed;
-    height: calc(100vh - 100px);
-    bottom: 0;
-    left: 0;
-}
-
 .container{
     margin: $mb_auto;
     padding: 0 $pd_block;

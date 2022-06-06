@@ -19,14 +19,14 @@ function App() {
                 <Header user={user} />
                 <main>
                   <Routes>
-                    <Route path="/" />
+                    <Route index />
                     <Route path='/catalog' />
                     <Route path="/login" element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     {
                       user ? 
                       (
-                        <Route path='/account' element={<Account user={user} cookie={cookie} />} />
+                        <Route path='/account/*' element={<Account user={user} cookie={cookie} />} />
                       )
                       :
                       null

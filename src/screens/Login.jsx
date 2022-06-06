@@ -7,7 +7,7 @@ function Login() {
 
     const [step, setStep] = useState(1)
 
-    const language = useLanguage()
+    const language = useLanguage({})
 
     return (
         <>

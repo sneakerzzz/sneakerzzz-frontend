@@ -7,7 +7,7 @@ function SideBar({ language, step }) {
     ]
 
     return (
-        <aside>
+        <aside className="aside">
             <div className="aside__inner inner-mini">
                 <div className="aside__steps">
                     {

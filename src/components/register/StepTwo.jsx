@@ -22,33 +22,37 @@ function StepTwo({ language, setStep, cookie }) {
         console.log(cookie);
         console.log(img);
 
-        axios({
-            url: `${api.url}/api/account/change-img`,
-            method: 'post',
-            data: formData
-        }).then(response => {
-            console.log(response);
-            if (response.data.success) {
-                if (response.data.message === 'Image has been changed successfully') {
-                    setRequestResult({ message: language.notification.successfulImgChange, success: true })
+        if (img) {
+            axios({
+                url: `${api.url}/api/account/change-img`,
+                method: 'post',
+                data: formData
+            }).then(response => {
+                console.log(response);
+                if (response.data.success) {
+                    if (response.data.message === 'Image has been changed successfully') {
+                        setRequestResult({ message: language.notification.successfulImgChange, success: true })
+                    }
+                    setStep(3)
+                    setImg()
+                } else {
+                    if (response.data.message === 'Error') {
+                        setRequestResult({ message: language.notification.error, success: false })
+                    }
+                    if (response.data.message === 'Missing fields') {
+                        setRequestResult({ message: language.notification.missingFields, success: false })
+                    }
+                    if (response.data.message === 'Session not found') {
+                        setRequestResult({ message: language.notification.sessionNotFound, success: false })
+                    }
                 }
-                setStep(3)
-                setImg()
-            } else {
-                if (response.data.message === 'Error') {
-                    setRequestResult({ message: language.notification.error, success: false })
-                }
-                if (response.data.message === 'Missing fields') {
-                    setRequestResult({ message: language.notification.missingFields, success: false })
-                }
-                if (response.data.message === 'Session not found') {
-                    setRequestResult({ message: language.notification.sessionNotFound, success: false })
-                }
-            }
-        }).catch(error => {
-            console.log(error);
-            setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
-        })
+            }).catch(error => {
+                console.log(error);
+                setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
+            })
+        } else {
+            setRequestResult({ message: 'Missing fields', success: false })
+        }
     }
 
     function handleImageChange(e) {
