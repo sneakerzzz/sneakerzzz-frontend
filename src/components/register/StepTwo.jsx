@@ -66,7 +66,7 @@ function StepTwo({ language, setStep, cookie }) {
 
             reader.readAsDataURL(e.target.files[0])
         } else {
-            setPreviewImg(`${api.api_url}/img/default-avatar.png`)
+            setPreviewImg(`${api.url}/img/default-avatar.png`)
         }
     }
 
