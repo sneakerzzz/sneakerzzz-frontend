@@ -10,15 +10,15 @@ function StepOne({ language, step, setStep }) {
     const cookies = new Cookies()
     const history = useNavigate()
 
-    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
     const [requestResult, setRequestResult] = useState({})
 
     function loginRequest(e) {
         e.preventDefault()
         setRequestResult({})
         axios.post(`${api.url}/api/account/login`, {
-            username: username,
+            email: email,
             password: password
         }).then(response => {
             if (response.data.success) {
@@ -30,7 +30,7 @@ function StepOne({ language, step, setStep }) {
                     maxAge: 3600 * 24 * 265 * 100
                 })
                 setStep(1)
-                setUsername('')
+                setEmail('')
                 setPassword('')
                 history('/')
                 document.location.reload()
@@ -64,7 +64,7 @@ function StepOne({ language, step, setStep }) {
                     </div>
                     <form onSubmit={(e) => loginRequest(e)} className="login__form">
                         <div className="login__form-input">
-                            <input value={username} type="text" onChange={(e) => setUsername(e.target.value)} placeholder={language.login.stepOne.inputs.username} />
+                            <input value={email} type="text" onChange={(e) => setEmail(e.target.value)} placeholder={language.login.stepOne.inputs.email} />
                         </div>
                         <div className="login__form-input">
                             <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder={language.login.stepOne.inputs.password} />

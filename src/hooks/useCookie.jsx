@@ -12,6 +12,11 @@ function useCookie() {
     const [userLoading, setUserLoading] = useState(false)
 
     useEffect(() => {
+        getUser()
+    }, [])
+
+    function getUser() {
+        setUserLoading(false)
         axios.post(`${api.url}/api/account/login-session`, {
             sessionID: cookie
         }).then(response => {
@@ -25,11 +30,9 @@ function useCookie() {
         }).catch(err => {
             setUserLoading(true)
         })
-    }, [cookie])
+    }
 
-
-
-    return [user, userLoading, cookie]
+    return [user, userLoading, cookie, getUser]
 }
 
 export default useCookie

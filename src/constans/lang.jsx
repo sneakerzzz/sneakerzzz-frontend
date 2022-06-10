@@ -24,7 +24,8 @@ const lang = [
                 title: "Login to your account",
                 inputs: {
                     username: "Username",
-                    password: "Password"
+                    password: "Password",
+                    email: "Email"
                 },
                 buttons: {
                     rememberMe: "Remember me",
@@ -72,11 +73,20 @@ const lang = [
             account: {
                 title: 'Account'
             },
-            password: {
-                title: 'Password'
-            },
             payment: {
                 title: 'Payment'
+            },
+            settings: {
+                title: 'Settings',
+                inputs: {
+                    username: 'Username',
+                    lang: 'Language',
+                    email: 'Email',
+                    password: 'Password'
+                },
+                buttons: {
+                    save: 'Save'
+                }
             },
             buttons: {
                 signout: 'Sign out'
@@ -108,7 +118,8 @@ const lang = [
                 title: "Войдите в аккаунт",
                 inputs: {
                     username: "Логин",
-                    password: "Пароль"
+                    password: "Пароль",
+                    email: "Электронная почта"
                 },
                 buttons: {
                     rememberMe: "Запомните меня",
@@ -156,8 +167,17 @@ const lang = [
             account: {
                 title: 'Аккаунт'
             },
-            password: {
-                title: 'Пароль'
+            settings: {
+                title: 'Пароль',
+                inputs: {
+                    username: 'Логин',
+                    lang: 'Язык',
+                    email: 'Электронная почта',
+                    password: 'Пароль'
+                },
+                buttons: {
+                    save: 'Сохранить'
+                }
             },
             payment: {
                 title: 'Платежи'

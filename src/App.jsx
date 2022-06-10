@@ -6,7 +6,7 @@ import { Header } from './components/navigation';
 
 function App() {
 
-  const [user, userLoading, cookie] = useCookie()
+  const [user, userLoading, cookie, getUser] = useCookie()
   console.log(user);
 
   return (
@@ -26,7 +26,7 @@ function App() {
                     {
                       user ? 
                       (
-                        <Route path='/account/*' element={<Account user={user} cookie={cookie} />} />
+                        <Route path='/account/*' element={<Account user={user} cookie={cookie} getUser={getUser} />} />
                       )
                       :
                       null

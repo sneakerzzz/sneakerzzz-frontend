@@ -60,7 +60,6 @@
             width: 100%;
             padding: 30px;
             color: $secondary_color;
-
             &.active {
                 color: $primary_color;
                 border-left: 5px solid $primary_color;
@@ -240,10 +239,40 @@ header {
                 width: 30px;
                 height: 30px;
                 background-image: url('../assets/pencil.svg');
-                background-size: contain;
+                background-size: cover;
                 transform: translate(-50%, -50%);
             }
         }
+    }
+    &__down{
+        margin-top: 30px;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__form{
+        width: 100%;
+        &-input{
+            width: 48%;
+            margin-bottom: 10px;
+            & input,
+            & select{
+                margin-top: 5px;
+                width: 100%;
+            }
+        }
+    }
+    &__block{
+        display: flex;
+        // align-items: center;
+        justify-content: space-between;
+    }
+    &__left{
+        width: 65%;
+    }
+    &__right{
+        width: 30%;
     }
 }
 

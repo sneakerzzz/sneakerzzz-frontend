@@ -1,8 +1,8 @@
-import { Sidebar, Settings, Password, Payment } from "../components/account"
+import { Sidebar, Settings, Payment } from "../components/account"
 import { Routes, Route } from "react-router-dom"
 import { Helmet } from "react-helmet"
 
-function Account({ user, cookie }) {
+function Account({ user, cookie, getUser }) {
     return (
         <>
             <Helmet>
@@ -11,8 +11,7 @@ function Account({ user, cookie }) {
             </Helmet>
             <Sidebar user={user} cookie={cookie} />
             <Routes>
-                <Route index element={<Settings user={user} cookie={cookie} />} />
-                <Route path="/password" element={<Password user={user} cookie={cookie} />} />
+                <Route index element={<Settings user={user} cookie={cookie} getUser={getUser} />} />
                 <Route path="/payment" element={<Payment user={user} cookie={cookie} />} />
             </Routes>
         </>
