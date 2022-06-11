@@ -36,13 +36,15 @@
     font-weight: $light_font_weight;
     margin-top: 5px;
     color: $primary_color;
+    cursor: pointer;
 }
 
-.sub-title{
-    font-size: $p_font_size;
+.sub-title h1{
+    font-size: $input_font_size;
     font-weight: $bold_font_weight;
     color: $primary_color;
-    letter-spacing: 1.2px;
+    // letter-spacing: 1.2px;
+    text-transform: uppercase;
 }
 
 .inner{

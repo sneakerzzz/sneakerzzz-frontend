@@ -69,7 +69,7 @@ function StepOne({ language, step, setStep }) {
                         <div className="login__form-input">
                             <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder={language.login.stepOne.inputs.password} />
                         </div>
-                        <button onClick={(e) => loginRequest(e)} className="login__form-button">{language.login.stepOne.buttons.login}</button>
+                        <button type="submit" onClick={(e) => loginRequest(e)} className="login__form-button">{language.login.stepOne.buttons.login}</button>
                         <Link to="/register" className="login__form-note sub-info">
                             <p>{language.login.stepOne.buttons.dontHaveAccount}</p>
                         </Link>

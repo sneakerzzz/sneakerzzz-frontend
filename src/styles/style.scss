@@ -124,7 +124,6 @@
 
 .register {
     margin-left: 340px;
-
     &__form {
         max-width: 600px;
 
@@ -209,41 +208,6 @@ header {
 
 .settings{
     margin-left: 340px;
-    &__img{
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 300px;
-        height: 300px;
-        & img{
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-        }
-        &-input{
-            cursor: pointer;
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            border-radius: 50% !important;
-            background-color: $primary_color !important;
-            right: -15px;
-            bottom: -15px;
-            font-size: 0 !important;
-            &::before{
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 30px;
-                height: 30px;
-                background-image: url('../assets/pencil.svg');
-                background-size: cover;
-                transform: translate(-50%, -50%);
-            }
-        }
-    }
     &__down{
         margin-top: 30px;
         display: flex;
@@ -261,6 +225,46 @@ header {
                 margin-top: 5px;
                 width: 100%;
             }
+        }
+        &-img{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 300px;
+            height: 300px;
+            & img{
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+            &-input{
+                cursor: pointer;
+                position: absolute;
+                width: 80px;
+                height: 80px;
+                border-radius: 50% !important;
+                background-color: $primary_color !important;
+                right: -15px;
+                bottom: -15px;
+                font-size: 0 !important;
+                &::before{
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 30px;
+                    height: 30px;
+                    background-image: url('../assets/pencil.svg');
+                    background-size: cover;
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+        &-buttons{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
     }
     &__block{

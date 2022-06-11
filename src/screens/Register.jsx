@@ -3,12 +3,13 @@ import { useState } from "react";
 import { StepOne, Sidebar, StepTwo, StepThree } from "../components/register";
 import {Helmet} from 'react-helmet'
 
-function Register() {
+function Register({user}) {
 
     const [step, setStep] = useState(1)
     const [cookie, setCookie] = useState()
 
     const language = useLanguage({})
+
 
     return (
         <>

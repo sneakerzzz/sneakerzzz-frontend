@@ -21,8 +21,8 @@ function App() {
                   <Routes>
                     <Route index />
                     <Route path='/catalog' />
-                    <Route path="/login" element={<Login />} />
-                    <Route path='/register' element={<Register />} />
+                    <Route path="/login" element={<Login user={user} />} />
+                    <Route path='/register' element={<Register user={user} />} />
                     {
                       user ? 
                       (

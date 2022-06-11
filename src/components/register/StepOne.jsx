@@ -14,18 +14,18 @@ function StepOne({ language, setStep, setCookie }) {
     const [requestResult, setRequestResult] = useState({})
 
     useEffect(() => {
-        setlang(window.navigator.language.split("-")[0])
-    }, [])
+        setlang(language.lang)
+    }, [language])
 
     function registerRequest(e) {
         e.preventDefault()
         setRequestResult({})
-        if (confirmPassword === password) {
             axios.post(`${api.url}/api/account/register`, {
                 username: username,
                 password: password,
                 lang: lang,
-                email: email
+                email: email,
+                confirmPassword: confirmPassword
             }).then(response => {
                 if (response.data.success) {
                     if (response.data.message === 'Registration successful') {
@@ -50,13 +50,13 @@ function StepOne({ language, setStep, setCookie }) {
                     if (response.data.message === 'Passwords do not match') {
                         setRequestResult({ message: language.notification.passwordsDoNotMatch, success: false })
                     }
+                    if (response.data.message === 'Email is not valid') {
+                        setRequestResult({ message: language.notification.emailIsNotValid, success: false })
+                    }
                 }
             }).catch(error => {
                 setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
             })
-        } else {
-            setRequestResult({ message: language.notification.passwordsDoNotMatch, success: false })
-        }
     }
 
     console.log(requestResult);
@@ -81,7 +81,7 @@ function StepOne({ language, setStep, setCookie }) {
                         <div className="register__form-input">
                             <input value={confirmPassword} type="password" onChange={(e) => setConfirmPassword(e.target.value)} placeholder={language.register.stepOne.inputs.confirmPassword} />
                         </div>
-                        <button onClick={(e) => registerRequest(e)} className="register__form-button">{language.register.stepOne.buttons.register}</button>
+                        <button type="submit" onClick={(e) => registerRequest(e)} className="register__form-button">{language.register.stepOne.buttons.register}</button>
                         <Link to="/login" className="register__form-note sub-info">
                             <p>{language.register.stepOne.buttons.alreadyHaveAccount}</p>
                         </Link>

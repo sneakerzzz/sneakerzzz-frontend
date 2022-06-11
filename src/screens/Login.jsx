@@ -3,7 +3,7 @@ import { useState } from "react";
 import { StepOne, Sidebar } from "../components/login";
 import { Helmet } from 'react-helmet'
 
-function Login() {
+function Login({user}) {
 
     const [step, setStep] = useState(1)
 

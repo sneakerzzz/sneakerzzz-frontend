@@ -1,5 +1,6 @@
 const lang = [
     {
+        title: 'English',
         lang: 'en',
         notification: {
             alert: 'Alert',
@@ -17,7 +18,9 @@ const lang = [
             serverIsNotAvailable: "Server is not available",
             error: 'Error',
             passwordsDoNotMatch: 'Passwords do not match',
-            sessionDeleted: 'Session was deleted successfully'
+            sessionDeleted: 'Session was deleted successfully',
+            emailIsNotValid: 'Email is not valid',
+            profileChanged: 'Profile has been updated successfully'
         },
         login: {
             stepOne: {
@@ -85,7 +88,8 @@ const lang = [
                     password: 'Password'
                 },
                 buttons: {
-                    save: 'Save'
+                    save: 'Save',
+                    cancel: 'Cancel'
                 }
             },
             buttons: {
@@ -94,6 +98,7 @@ const lang = [
         }
     },
     {
+        title: 'Русский',
         lang: 'ru',
         notification: {
             alert: 'Уведомление',
@@ -111,7 +116,9 @@ const lang = [
             serverIsNotAvailable: "Сервер недоступен",
             error: 'Ошибка',
             passwordsDoNotMatch: 'Пароли не совпадают',
-            sessionDeleted: 'Сессия была удалена успешно'
+            sessionDeleted: 'Сессия была удалена успешно',
+            emailIsNotValid: 'Неправильная электронная почта',
+            profileChanged: 'Профиль был обновлен успешно'
         },
         login: {
             stepOne: {
@@ -176,7 +183,8 @@ const lang = [
                     password: 'Пароль'
                 },
                 buttons: {
-                    save: 'Сохранить'
+                    save: 'Сохранить',
+                    cancel: 'Отменить'
                 }
             },
             payment: {

@@ -57,6 +57,7 @@ function StepTwo({ language, setStep, cookie }) {
 
     function handleImageChange(e) {
         if (e.target.files && e.target.files[0]) {
+            setImg(e.target.files[0])
             const reader = new FileReader()
 
             reader.onload = function (e) {
@@ -66,7 +67,7 @@ function StepTwo({ language, setStep, cookie }) {
 
             reader.readAsDataURL(e.target.files[0])
         } else {
-            setPreviewImg(`${api.url}/img/default-avatar.png`)
+            setPreviewUploaded(false)
         }
     }
 
@@ -92,11 +93,10 @@ function StepTwo({ language, setStep, cookie }) {
                             <div className="register__form-input">
                                 <input onChange={(e) => {
                                     handleImageChange(e)
-                                    setImg(e.target.files[0])
                                 }} type="file" />
                             </div>
                         </div>
-                        <button onClick={(e) => changeImgRequest(e)} className="register__form-button">{language.register.stepTwo.buttons.done}</button>
+                        <button type="submit" onClick={(e) => changeImgRequest(e)} className="register__form-button">{language.register.stepTwo.buttons.done}</button>
                         <div onClick={() => setStep(3)} className="register__form-note sub-info">
                             <p>{language.register.stepTwo.buttons.skip}</p>
                         </div>

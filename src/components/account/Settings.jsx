@@ -1,7 +1,6 @@
 import { useLanguage } from "../../hooks"
 import { useState, useEffect } from "react"
 import api from "../../constans/api"
-import images from "../../constans/images"
 import axios from "axios"
 
 function Settings({ user, cookie, getUser }) {
@@ -15,6 +14,7 @@ function Settings({ user, cookie, getUser }) {
     const [password, setPassword] = useState('')
     const [previewUploaded, setPreviewUploaded] = useState(false)
     const [previewImg, setPreviewImg] = useState()
+    const [requestResults, setRequestResults] = useState([])
     const [requestResult, setRequestResult] = useState({})
 
     useEffect(() => {
@@ -27,6 +27,7 @@ function Settings({ user, cookie, getUser }) {
 
     function updateAccountRequest(e) {
         e.preventDefault()
+        setRequestResults([])
         setRequestResult({})
         if (username !== user.username) {
             axios.post(`${api.url}/api/account/change-username`, {
@@ -36,24 +37,24 @@ function Settings({ user, cookie, getUser }) {
                 console.log(response);
                 if (response.data.success) {
                     if (response.data.message === 'Username has been changed successfully') {
-                        setRequestResult({ message: language.notification.successfulLangChange, success: true })
+                        setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
                     }
                     setUsername(user.username)
                     getUser()
                 } else {
                     if (response.data.message === 'Error') {
-                        setRequestResult({ message: language.notification.error, success: false })
+                        setRequestResults([...requestResults, { message: language.notification.error, success: false }])
                     }
                     if (response.data.message === 'Missing fields') {
-                        setRequestResult({ message: language.notification.missingFields, success: false })
+                        setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
                     }
                     if (response.data.message === 'Session not found') {
-                        setRequestResult({ message: language.notification.sessionNotFound, success: false })
+                        setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
                     }
                 }
             }).catch(error => {
                 console.log(error);
-                setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
+                setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
             })
         }
         if (lang !== user.lang) {
@@ -64,24 +65,24 @@ function Settings({ user, cookie, getUser }) {
                 console.log(response);
                 if (response.data.success) {
                     if (response.data.message === 'Language has been changed successfully') {
-                        setRequestResult({ message: language.notification.successfulLangChange, success: true })
+                        setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
                     }
                     setLang(user.username)
                     getUser()
                 } else {
                     if (response.data.message === 'Error') {
-                        setRequestResult({ message: language.notification.error, success: false })
+                        setRequestResults([...requestResults, { message: language.notification.error, success: false }])
                     }
                     if (response.data.message === 'Missing fields') {
-                        setRequestResult({ message: language.notification.missingFields, success: false })
+                        setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
                     }
                     if (response.data.message === 'Session not found') {
-                        setRequestResult({ message: language.notification.sessionNotFound, success: false })
+                        setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
                     }
                 }
             }).catch(error => {
                 console.log(error);
-                setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
+                setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
             })
         }
         if (img !== user.img) {
@@ -97,30 +98,38 @@ function Settings({ user, cookie, getUser }) {
                 console.log(response);
                 if (response.data.success) {
                     if (response.data.message === 'Image has been changed successfully') {
-                        setRequestResult({ message: language.notification.successfulImgChange, success: true })
+                        setRequestResults([...requestResults, { message: language.notification.successfulImgChange, success: true }])
                     }
                     setImg(user.img)
                     getUser()
                 } else {
                     if (response.data.message === 'Error') {
-                        setRequestResult({ message: language.notification.error, success: false })
+                        setRequestResults([...requestResults, { message: language.notification.error, success: false }])
                     }
                     if (response.data.message === 'Missing fields') {
-                        setRequestResult({ message: language.notification.missingFields, success: false })
+                        setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
                     }
                     if (response.data.message === 'Session not found') {
-                        setRequestResult({ message: language.notification.sessionNotFound, success: false })
+                        setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
                     }
                 }
             }).catch(error => {
                 console.log(error);
-                setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
+                setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
             })
+            if (requestResults[0].success && requestResults[1].success && requestResults[2].success) {
+                setRequestResult({ message: language.notification.profileChanged, success: true })
+            } else {
+                setRequestResult({ message: language.notification.error, success: false })
+            }
         }
     }
 
+    console.log(requestResult);
+
     function handleImageChange(e) {
         if (e.target.files && e.target.files[0]) {
+            setImg(e.target.files[0])
             const reader = new FileReader()
 
             reader.onload = function (e) {
@@ -130,8 +139,8 @@ function Settings({ user, cookie, getUser }) {
 
             reader.readAsDataURL(e.target.files[0])
         } else {
-            setPreviewImg(`${api.url}/${user.img}`)
             setPreviewUploaded(false)
+            setImg(user.img)
         }
     }
 
@@ -146,42 +155,50 @@ function Settings({ user, cookie, getUser }) {
                         <div className="settings__left">
                             <form className="settings__form">
                                 <div className="settings__up">
-                                    <div className="settings__img">
+                                    <div className="settings__form-img">
                                         {
                                             previewUploaded ?
                                                 <img src={previewImg} alt="" />
                                                 :
-                                                <img src={`${api.url}/${user.img}`} alt="" />
+                                                <img src={`${api.url}/${img}`} alt="" />
                                         }
                                         <input onChange={(e) => {
                                             handleImageChange(e)
-                                            setImg(e.target.files[0])
-                                        }} type="file" className="settings__img-input" />
+                                        }} type="file" className="settings__form-img-input" />
                                     </div>
                                 </div>
                                 <div className="settings__down">
-                                    <div className="settings__form-input">
+                                    <div className="settings__form-input sub-title">
                                         <h1>{language.account.settings.inputs.username}</h1>
                                         <input value={username} type="text" onChange={(e) => setUsername(e.target.value)} />
                                     </div>
-                                    <div className="settings__form-input">
+                                    <div className="settings__form-input sub-title">
                                         <h1>{language.account.settings.inputs.email}</h1>
                                         <input disabled={true} value={email} type="text" onChange={(e) => setEmail(e.target.value)} />
                                     </div>
-                                    <div className="settings__form-input">
+                                    <div className="settings__form-input sub-title">
                                         <h1>{language.account.settings.inputs.lang}</h1>
-                                        <select onChange={(e) => setLang(e.target.value)}>
-                                            <option value=''>{lang}</option>
-                                            <option value='en'>English</option>
+                                        <select value={lang} onChange={(e) => setLang(e.target.value)}>
                                             <option value='ru'>Русский</option>
+                                            <option value='en'>English</option>
                                         </select>
                                     </div>
-                                    <div className="settings__form-input">
+                                    <div className="settings__form-input sub-title">
                                         <h1>{language.account.settings.inputs.password}</h1>
                                         <input disabled={true} value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
                                     </div>
                                 </div>
-                                <button onClick={(e) => updateAccountRequest(e)} className="settings__form-button">{language.account.settings.buttons.save}</button>
+                                <div className="settings__form-buttons">
+                                    <button type='button' onClick={() => {
+                                        setUsername(user.username)
+                                        setLang(user.lang)
+                                        setEmail(user.email)
+                                        setPassword(user.password)
+                                        setImg(user.img)
+                                        setPreviewUploaded(false)
+                                    }} className="settings__form-button secondary">{language.account.settings.buttons.cancel}</button>
+                                    <button type="button" onClick={(e) => updateAccountRequest(e)} className="settings__form-button">{language.account.settings.buttons.save}</button>
+                                </div>
                             </form>
                         </div>
                         <div className="settings__right">

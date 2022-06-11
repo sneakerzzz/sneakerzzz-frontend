@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import api from "../../constans/api";
+import { useEffect } from "react";
 
 
 function StepThree({ language, setStep, cookie }) {
@@ -9,6 +10,10 @@ function StepThree({ language, setStep, cookie }) {
     const history = useNavigate()
     const [requestResult, setRequestResult] = useState({})
     const [lang, setLang] = useState()
+
+    useEffect(() => {
+        setLang(language.lang)
+    }, [language])
 
     function changeLangRequest(e) {
         e.preventDefault()
@@ -53,14 +58,12 @@ function StepThree({ language, setStep, cookie }) {
                     </div>
                     <form onSubmit={(e) => changeLangRequest(e)} className="register__form">
                         <div className="register__form-select">
-                            <select onChange={(e) => setLang(e.target.value)}>
-                                <option value=''>{language.register.stepThree.inputs.language}</option>
+                            <select value={lang} onChange={(e) => setLang(e.target.value)}>
                                 <option value='en'>English</option>
                                 <option value='ru'>Русский</option>
-                                <option value='kk'>Қазақша</option>
                             </select>
                         </div>
-                        <button onClick={(e) => changeLangRequest(e)} className="register__form-button">{language.register.stepThree.buttons.done}</button>
+                        <button type="submit" onClick={(e) => changeLangRequest(e)} className="register__form-button">{language.register.stepThree.buttons.done}</button>
                         <div onClick={() => {
                             setStep(1)
                             history('/login')
