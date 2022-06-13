@@ -1,22 +1,18 @@
-// import { useLocation } from "react-router-dom"
-import Cookies from "universal-cookie"
+import { useLocation } from "react-router-dom"
 import api from "../constans/api"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import axios from "axios"
+import { GlobalContext } from "../context/GlobalState"
 
 function useCookie() {
 
-    const cookies = new Cookies()
-    const cookie = cookies.get('sessionID')
-    const [user, setUser] = useState()
+    const { cookie, setUser, user } = useContext(GlobalContext)
     const [userLoading, setUserLoading] = useState(false)
+    const [trigger, setTrigger] = useState(false)
 
     useEffect(() => {
-        getUser()
-    }, [])
-
-    function getUser() {
         setUserLoading(false)
+        setTrigger(false)
         axios.post(`${api.url}/api/account/login-session`, {
             sessionID: cookie
         }).then(response => {
@@ -30,9 +26,9 @@ function useCookie() {
         }).catch(err => {
             setUserLoading(true)
         })
-    }
+    }, [trigger, cookie])
 
-    return [user, userLoading, cookie, getUser]
+    return { user, userLoading, cookie, setTrigger }
 }
 
 export default useCookie

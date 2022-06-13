@@ -1,47 +1,33 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Login, Register, Account } from './screens';
-import { useCookie } from './hooks';
-import './styles/style.scss'
+import { Route, Routes } from 'react-router-dom'
+import { Login, Register, Account, Home, Catalog } from './screens';
 import { Header } from './components/navigation';
+import './styles/style.scss'
+import { useCookie } from './hooks';
 
 function App() {
 
-  const [user, userLoading, cookie, getUser] = useCookie()
-  console.log(user);
+  const { user, cookie, setTrigger, userLoading } = useCookie()
 
   return (
     <>
-      <BrowserRouter>
-        {
-          userLoading ?
-            (
-              <>
-                <Header user={user} />
-                <main>
-                  <Routes>
-                    <Route index />
-                    <Route path='/catalog' />
-                    <Route path="/login" element={<Login user={user} />} />
-                    <Route path='/register' element={<Register user={user} />} />
-                    {
-                      user ? 
-                      (
-                        <Route path='/account/*' element={<Account user={user} cookie={cookie} getUser={getUser} />} />
-                      )
-                      :
-                      null
-                    }
-                    <Route path="*" />
-                  </Routes>
-                </main>
-              </>
-            )
-            :
-            (
-              <div className="loading"></div>
-            )
-        }
-      </BrowserRouter>
+      <Header user={user} userLoading={userLoading} />
+      <main>
+        <Routes>
+          <Route index element={<Home user={user} userLoading={userLoading} />} />
+          <Route path='/catalog' element={<Catalog user={user} userLoading={userLoading} />} />
+          <Route path="/login" element={<Login user={user} userLoading={userLoading} />} />
+          <Route path='/register' element={<Register user={user} userLoading={userLoading} />} />
+          {
+            user ?
+              (
+                <Route path='/account/*' element={<Account user={user} userLoading={userLoading} cookie={cookie} setTrigger={setTrigger} />} />
+              )
+              :
+              null
+          }
+          <Route path="*" />
+        </Routes>
+      </main>
     </>
   );
 }
