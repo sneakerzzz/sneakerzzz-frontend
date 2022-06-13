@@ -1,13 +1,15 @@
-import { useLanguage } from "../hooks";
+import { useLanguage, useCookie } from "../hooks";
 import { useState } from "react";
 import { StepOne, Sidebar } from "../components/login";
 import { Helmet } from 'react-helmet'
+import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
-function Login({user}) {
+function Login({ user, userLoading }) {
 
     const [step, setStep] = useState(1)
-
     const language = useLanguage({})
+    const navigate = useNavigate()
 
     return (
         <>
@@ -16,15 +18,25 @@ function Login({user}) {
                 <meta name="description" content="Login to your account" />
             </Helmet>
             {
-                step === 1 ?
+                userLoading ?
                     (
-                        <>
-                            <Sidebar language={language} step={step} />
-                            <StepOne language={language} step={step} setStep={setStep} />
-                        </>
+                        !user ?
+                            (
+                                step === 1 ?
+                                    (
+                                        <>
+                                            <Sidebar language={language} step={step} />
+                                            <StepOne language={language} step={step} setStep={setStep} />
+                                        </>
+                                    )
+                                    :
+                                    null
+                            )
+                            :
+                            navigate('/')
                     )
                     :
-                    null
+                    <Loading />
             }
         </>
     )
