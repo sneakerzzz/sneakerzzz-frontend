@@ -1,18 +1,19 @@
 import { useState } from "react";
 import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from 'universal-cookie'
 import api from "../../constans/api";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalState";
 
 
-function StepOne({ language, step, setStep }) {
+function StepOne({ language, setStep }) {
 
-    const cookies = new Cookies()
     const history = useNavigate()
 
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [requestResult, setRequestResult] = useState({})
+    const { setCookie } = useContext(GlobalContext)
 
     function loginRequest(e) {
         e.preventDefault()
@@ -25,15 +26,11 @@ function StepOne({ language, step, setStep }) {
                 if (response.data.message === 'Login successful') {
                     setRequestResult({ message: language.notification.successfulLogin, success: true })
                 }
-                cookies.set('sessionID', response.data.sessionID, {
-                    path: '/',
-                    maxAge: 3600 * 24 * 265 * 100
-                })
+                setCookie(response.data.sessionID)
                 setStep(1)
                 setEmail('')
                 setPassword('')
                 history('/')
-                document.location.reload()
             } else {
                 if (response.data.message === 'Error') {
                     setRequestResult({ message: language.notification.error, success: false })

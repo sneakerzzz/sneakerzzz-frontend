@@ -85,11 +85,16 @@ const lang = [
                     username: 'Username',
                     lang: 'Language',
                     email: 'Email',
-                    password: 'Password'
+                    password: 'Password',
+                    changeEmail: 'Change email',
+                    changePassword: 'Change password',
+                    deleteAccount: 'Delete account'
                 },
                 buttons: {
                     save: 'Save',
-                    cancel: 'Cancel'
+                    cancel: 'Cancel',
+                    change: 'Change',
+                    delete: 'Delete'
                 }
             },
             buttons: {
@@ -180,11 +185,16 @@ const lang = [
                     username: 'Логин',
                     lang: 'Язык',
                     email: 'Электронная почта',
-                    password: 'Пароль'
+                    password: 'Пароль',
+                    changeEmail: 'Изменить электронную почту',
+                    changePassword: 'Изменить пароль',
+                    deleteAccount: 'Удалить аккаунт'
                 },
                 buttons: {
                     save: 'Сохранить',
-                    cancel: 'Отменить'
+                    cancel: 'Отменить',
+                    change: 'Изменить',
+                    delete: 'Удалить'
                 }
             },
             payment: {

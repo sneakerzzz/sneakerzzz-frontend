@@ -68,6 +68,7 @@ function StepTwo({ language, setStep, cookie }) {
             reader.readAsDataURL(e.target.files[0])
         } else {
             setPreviewUploaded(false)
+            setImg()
         }
     }
 

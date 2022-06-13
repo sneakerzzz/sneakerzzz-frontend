@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import api from "../../constans/api"
 import axios from "axios"
 
-function Settings({ user, cookie, getUser }) {
+function Settings({ user, cookie, setTrigger }) {
 
     const language = useLanguage({ user })
 
@@ -15,7 +15,9 @@ function Settings({ user, cookie, getUser }) {
     const [previewUploaded, setPreviewUploaded] = useState(false)
     const [previewImg, setPreviewImg] = useState()
     const [requestResults, setRequestResults] = useState([])
-    const [requestResult, setRequestResult] = useState({})
+    const [changeEmailModal, setChangeEmailModal] = useState(false)
+    const [changePasswordModal, setChangePasswordModal] = useState(false)
+    const [deleteAccountModal, setDeleteAccountModal] = useState(false)
 
     useEffect(() => {
         setUsername(user.username)
@@ -28,7 +30,6 @@ function Settings({ user, cookie, getUser }) {
     function updateAccountRequest(e) {
         e.preventDefault()
         setRequestResults([])
-        setRequestResult({})
         if (username !== user.username) {
             axios.post(`${api.url}/api/account/change-username`, {
                 username: username,
@@ -40,7 +41,7 @@ function Settings({ user, cookie, getUser }) {
                         setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
                     }
                     setUsername(user.username)
-                    getUser()
+                    setTrigger(true)
                 } else {
                     if (response.data.message === 'Error') {
                         setRequestResults([...requestResults, { message: language.notification.error, success: false }])
@@ -68,7 +69,7 @@ function Settings({ user, cookie, getUser }) {
                         setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
                     }
                     setLang(user.username)
-                    getUser()
+                    setTrigger(true)
                 } else {
                     if (response.data.message === 'Error') {
                         setRequestResults([...requestResults, { message: language.notification.error, success: false }])
@@ -101,7 +102,7 @@ function Settings({ user, cookie, getUser }) {
                         setRequestResults([...requestResults, { message: language.notification.successfulImgChange, success: true }])
                     }
                     setImg(user.img)
-                    getUser()
+                    setTrigger(true)
                 } else {
                     if (response.data.message === 'Error') {
                         setRequestResults([...requestResults, { message: language.notification.error, success: false }])
@@ -117,15 +118,8 @@ function Settings({ user, cookie, getUser }) {
                 console.log(error);
                 setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
             })
-            if (requestResults[0].success && requestResults[1].success && requestResults[2].success) {
-                setRequestResult({ message: language.notification.profileChanged, success: true })
-            } else {
-                setRequestResult({ message: language.notification.error, success: false })
-            }
         }
     }
-
-    console.log(requestResult);
 
     function handleImageChange(e) {
         if (e.target.files && e.target.files[0]) {
@@ -202,9 +196,58 @@ function Settings({ user, cookie, getUser }) {
                             </form>
                         </div>
                         <div className="settings__right">
-
+                            <div className="settings__banners">
+                                <div className="settings__banner">
+                                    <div className="settings__banner-title">
+                                        <h1>{language.account.settings.inputs.changeEmail}</h1>
+                                    </div>
+                                    <button className="settings__banner-button" type="button">{language.account.settings.buttons.change}</button>
+                                </div>
+                                <div className="settings__banner">
+                                    <div className="settings__banner-title">
+                                        <h1>{language.account.settings.inputs.changePassword}</h1>
+                                    </div>
+                                    <button className="settings__banner-button" type="button">{language.account.settings.buttons.change}</button>
+                                </div>
+                                <div className="settings__banner">
+                                    <div className="settings__banner-title">
+                                        <h1>{language.account.settings.inputs.deleteAccount}</h1>
+                                    </div>
+                                    <button className="settings__banner-button" type="button">{language.account.settings.buttons.delete}</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    {
+                        changeEmailModal ?
+                        (
+                            <div className="settings__modal">
+
+                            </div>
+                        )
+                        :
+                        null
+                    }
+                    {
+                        changePasswordModal ?
+                        (
+                            <div className="settings__modal">
+                                
+                            </div>
+                        )
+                        :
+                        null
+                    }
+                    {
+                        deleteAccountModal ?
+                        (
+                            <div className="settings__modal">
+                                
+                            </div>
+                        )
+                        :
+                        null
+                    }
                 </div >
             </div >
         </section >
