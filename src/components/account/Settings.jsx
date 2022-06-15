@@ -2,6 +2,8 @@ import { useLanguage } from "../../hooks"
 import { useState, useEffect } from "react"
 import api from "../../constans/api"
 import axios from "axios"
+import images from "../../constans/images"
+import { useNavigate } from "react-router-dom"
 
 function Settings({ user, cookie, setTrigger }) {
 
@@ -18,6 +20,12 @@ function Settings({ user, cookie, setTrigger }) {
     const [changeEmailModal, setChangeEmailModal] = useState(false)
     const [changePasswordModal, setChangePasswordModal] = useState(false)
     const [deleteAccountModal, setDeleteAccountModal] = useState(false)
+    const [newEmail, setNewEmail] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmNewPassword, setConfirmNewPassword] = useState('')
+    const [_password, _setPassword] = useState('')
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         setUsername(user.username)
@@ -121,6 +129,124 @@ function Settings({ user, cookie, setTrigger }) {
         }
     }
 
+    function changeEmailRequest(e) {
+        e.preventDefault()
+        setRequestResults([])
+        axios.post(`${api.url}/api/account/change-email`, {
+            newEmail: newEmail,
+            password: _password,
+            sessionID: cookie
+        }).then(response => {
+            console.log(response);
+            if (response.data.success) {
+                if (response.data.message === 'Email has been changed successfully') {
+                    setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
+                }
+                emailModal(false)
+                setTrigger(true)
+                setNewEmail('')
+                _setPassword('')
+            } else {
+                if (response.data.message === 'Error') {
+                    setRequestResults([...requestResults, { message: language.notification.error, success: false }])
+                }
+                if (response.data.message === 'Missing fields') {
+                    setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
+                }
+                if (response.data.message === 'Session not found') {
+                    setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
+                }
+                if (response.data.message === 'Incorrect password') {
+                    setRequestResults([...requestResults, { message: language.notification.incorrectPassword, success: false }])
+                }
+                if (response.data.message === 'Email already exists') {
+                    setRequestResults([...requestResults, { message: language.notification.emailAlreadyExists, success: false }])
+                }
+            }
+        }).catch(error => {
+            console.log(error);
+            setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
+        })
+    }
+
+    function changePasswordRequest(e) {
+        e.preventDefault()
+        console.log(confirmNewPassword, newPassword, _password);
+        setRequestResults([])
+        axios.post(`${api.url}/api/account/change-password`, {
+            newPassword: newPassword,
+            confirmNewPassword: confirmNewPassword,
+            password: _password,
+            sessionID: cookie
+        }).then(response => {
+            console.log(response);
+            if (response.data.success) {
+                if (response.data.message === 'Password has been changed successfully') {
+                    setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
+                }
+                passwordModal(false)
+                setTrigger(true)
+                setNewPassword('')
+                setConfirmNewPassword('')
+                _setPassword('')
+            } else {
+                if (response.data.message === 'Error') {
+                    setRequestResults([...requestResults, { message: language.notification.error, success: false }])
+                }
+                if (response.data.message === 'Missing fields') {
+                    setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
+                }
+                if (response.data.message === 'Session not found') {
+                    setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
+                }
+                if (response.data.message === 'Incorrect password') {
+                    setRequestResults([...requestResults, { message: language.notification.incorrectPassword, success: false }])
+                }
+            }
+        }).catch(error => {
+            console.log(error);
+            setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
+        })
+    }
+
+    function deleteAccountRequest(e) {
+        e.preventDefault()
+        setRequestResults([])
+        axios.post(`${api.url}/api/account/delete-user`, {
+            sessionID: cookie,
+            password: _password
+        }).then(response => {
+            console.log(response);
+            if (response.data.success) {
+                if (response.data.message === 'User was deleted succesfully') {
+                    setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
+                }
+                accountModal(false)
+                setTrigger(true)
+                _setPassword('')
+                navigate('/')
+            } else {
+                if (response.data.message === 'Error') {
+                    setRequestResults([...requestResults, { message: language.notification.error, success: false }])
+                }
+                if (response.data.message === 'Missing fields') {
+                    setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
+                }
+                if (response.data.message === 'Session not found') {
+                    setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
+                }
+                if (response.data.message === 'Incorrect password') {
+                    setRequestResults([...requestResults, { message: language.notification.incorrectPassword, success: false }])
+                }
+            }
+        }).catch(error => {
+            console.log(error);
+            setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
+        })
+    }
+
+    console.log(requestResults);
+
     function handleImageChange(e) {
         if (e.target.files && e.target.files[0]) {
             setImg(e.target.files[0])
@@ -138,6 +264,39 @@ function Settings({ user, cookie, setTrigger }) {
         }
     }
 
+    function emailModal(value) {
+        const body = document.querySelector('body')
+        if (value) {
+            setChangeEmailModal(true)
+            body.classList.add('lock')
+        } else {
+            setChangeEmailModal(false)
+            body.classList.remove('lock')
+        }
+    }
+
+    function passwordModal(value) {
+        const body = document.querySelector('body')
+        if (value) {
+            setChangePasswordModal(true)
+            body.classList.add('lock')
+        } else {
+            setChangePasswordModal(false)
+            body.classList.remove('lock')
+        }
+    }
+
+    function accountModal(value) {
+        const body = document.querySelector('body')
+        if (value) {
+            setDeleteAccountModal(true)
+            body.classList.add('lock')
+        } else {
+            setDeleteAccountModal(false)
+            body.classList.remove('lock')
+        }
+    }
+
     return (
         <section className="settings">
             <div className="container">
@@ -147,7 +306,7 @@ function Settings({ user, cookie, setTrigger }) {
                     </div>
                     <div className="settings__block">
                         <div className="settings__left">
-                            <form className="settings__form">
+                            <form className="settings__form" onSubmit={(e) => updateAccountRequest(e)}>
                                 <div className="settings__up">
                                     <div className="settings__form-img">
                                         {
@@ -201,52 +360,100 @@ function Settings({ user, cookie, setTrigger }) {
                                     <div className="settings__banner-title">
                                         <h1>{language.account.settings.inputs.changeEmail}</h1>
                                     </div>
-                                    <button className="settings__banner-button" type="button">{language.account.settings.buttons.change}</button>
+                                    <button onClick={() => emailModal(true)} className="settings__banner-button" type="button">{language.account.settings.buttons.change}</button>
                                 </div>
                                 <div className="settings__banner">
                                     <div className="settings__banner-title">
                                         <h1>{language.account.settings.inputs.changePassword}</h1>
                                     </div>
-                                    <button className="settings__banner-button" type="button">{language.account.settings.buttons.change}</button>
+                                    <button onClick={() => passwordModal(true)} className="settings__banner-button" type="button">{language.account.settings.buttons.change}</button>
                                 </div>
                                 <div className="settings__banner">
                                     <div className="settings__banner-title">
                                         <h1>{language.account.settings.inputs.deleteAccount}</h1>
                                     </div>
-                                    <button className="settings__banner-button" type="button">{language.account.settings.buttons.delete}</button>
+                                    <button onClick={() => accountModal(true)} className="settings__banner-button" type="button">{language.account.settings.buttons.delete}</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {
                         changeEmailModal ?
-                        (
-                            <div className="settings__modal">
-
-                            </div>
-                        )
-                        :
-                        null
+                            (
+                                <div className="settings__modal">
+                                    <div className="settings__modal-window">
+                                        <div className="settings__modal-close" onClick={() => emailModal(false)}>
+                                            <img src={images.close} alt="" />
+                                        </div>
+                                        <div className="settings__modal-title">
+                                            <h1>{language.account.settings.inputs.changeEmail}</h1>
+                                        </div>
+                                        <form onSubmit={(e) => changeEmailRequest(e)} className="settings__modal-form">
+                                            <div className="settings__modal-form-input sub-title">
+                                                <input placeholder={language.account.settings.inputs.newEmail} value={newEmail} type="text" onChange={(e) => setNewEmail(e.target.value)} />
+                                            </div>
+                                            <div className="settings__modal-form-input sub-title">
+                                                <input placeholder={language.account.settings.inputs.password} value={_password} type="password" onChange={(e) => _setPassword(e.target.value)} />
+                                            </div>
+                                            <button onClick={(e) => changeEmailRequest(e)} className="settings__modal-form-button" type="submit">{language.account.settings.buttons.change}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            )
+                            :
+                            null
                     }
                     {
                         changePasswordModal ?
-                        (
-                            <div className="settings__modal">
-                                
-                            </div>
-                        )
-                        :
-                        null
+                            (
+                                <div className="settings__modal">
+                                    <div className="settings__modal-window">
+                                        <div className="settings__modal-close" onClick={() => passwordModal(false)}>
+                                            <img src={images.close} alt="" />
+                                        </div>
+                                        <div className="settings__modal-title">
+                                            <h1>{language.account.settings.inputs.changePassword}</h1>
+                                        </div>
+                                        <form onSubmit={(e) => changePasswordRequest(e)} className="settings__modal-form">
+                                            <div className="settings__modal-form-input sub-title">
+                                                <input placeholder={language.account.settings.inputs.newPassword} value={newPassword} type="text" onChange={(e) => setNewPassword(e.target.value)} />
+                                            </div>
+                                            <div className="settings__modal-form-input sub-title">
+                                                <input placeholder={language.account.settings.inputs.confirmNewPassword} value={confirmNewPassword} type="text" onChange={(e) => setConfirmNewPassword(e.target.value)} />
+                                            </div>
+                                            <div className="settings__modal-form-input sub-title">
+                                                <input placeholder={language.account.settings.inputs.password} value={_password} type="password" onChange={(e) => _setPassword(e.target.value)} />
+                                            </div>
+                                            <button onClick={(e) => changePasswordRequest(e)} className="settings__modal-form-button" type="submit">{language.account.settings.buttons.change}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            )
+                            :
+                            null
                     }
                     {
                         deleteAccountModal ?
-                        (
-                            <div className="settings__modal">
-                                
-                            </div>
-                        )
-                        :
-                        null
+                            (
+                                <div className="settings__modal">
+                                    <div className="settings__modal-window">
+                                        <div className="settings__modal-close" onClick={() => accountModal(false)}>
+                                            <img src={images.close} alt="" />
+                                        </div>
+                                        <div className="settings__modal-title">
+                                            <h1>{language.account.settings.inputs.deleteAccount}</h1>
+                                        </div>
+                                        <form className="settings__modal-form" onSubmit={(e) => deleteAccountRequest(e)}>
+                                            <div className="settings__modal-form-input sub-title">
+                                                <input placeholder={language.account.settings.inputs.password} value={_password} type="text" onChange={(e) => _setPassword(e.target.value)} />
+                                            </div>
+                                            <button onClick={(e) => deleteAccountRequest(e)} className="settings__modal-form-button" type="submit">{language.account.settings.buttons.delete}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            )
+                            :
+                            null
                     }
                 </div >
             </div >

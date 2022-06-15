@@ -88,7 +88,11 @@ const lang = [
                     password: 'Password',
                     changeEmail: 'Change email',
                     changePassword: 'Change password',
-                    deleteAccount: 'Delete account'
+                    deleteAccount: 'Delete account',
+                    newEmail: 'New email',
+                    confirmNewEmail: 'Confirm email email',
+                    newPassword: 'New password',
+                    confirmNewPassword: 'Confirm new password'
                 },
                 buttons: {
                     save: 'Save',
@@ -180,7 +184,7 @@ const lang = [
                 title: 'Аккаунт'
             },
             settings: {
-                title: 'Пароль',
+                title: 'Настройки',
                 inputs: {
                     username: 'Логин',
                     lang: 'Язык',
@@ -188,7 +192,11 @@ const lang = [
                     password: 'Пароль',
                     changeEmail: 'Изменить электронную почту',
                     changePassword: 'Изменить пароль',
-                    deleteAccount: 'Удалить аккаунт'
+                    deleteAccount: 'Удалить аккаунт',
+                    newEmail: 'Новая эл. почта',
+                    confirmNewEmail: 'Подтверждение новой эл. почты',
+                    newPassword: 'Новый пароль',
+                    confirmNewPassword: 'Подтверждение нового пароля'
                 },
                 buttons: {
                     save: 'Сохранить',

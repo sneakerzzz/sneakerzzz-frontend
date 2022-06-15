@@ -1,4 +1,5 @@
 import edit from '../assets/pencil.svg'
+import close from '../assets/close.png'
 
 const settings =
     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +54,8 @@ const payment =
 const images = {
     edit,
     settings,
-    payment
+    payment,
+    close
 }
 
 export default images

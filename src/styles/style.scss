@@ -9,12 +9,14 @@
     left: 0;
     z-index: $z_fixed;
     border-right: 2px solid $bg_color_lighter;
-    &__inner{
+
+    &__inner {
         display: flex;
         flex-direction: column;
         height: calc(100vh - 120px);
         justify-content: space-between;
     }
+
     &__steps {
         display: flex;
         flex-direction: column;
@@ -61,6 +63,7 @@
             padding: 30px;
             color: $secondary_color;
             transition: all 0.2s ease-in-out;
+
             &.active {
                 color: $primary_color;
                 border-left: 5px solid $primary_color;
@@ -70,7 +73,7 @@
                 }
             }
 
-            &:hover{
+            &:hover {
                 color: $primary_color;
 
                 & .aside__nav-link-img svg {
@@ -93,15 +96,17 @@
         }
     }
 
-    &__signout{
+    &__signout {
         cursor: pointer;
         justify-self: flex-end;
         display: flex;
         align-items: center;
         margin: 30px;
-        &-img{
+
+        &-img {
             margin-right: 20px;
-            & svg{
+
+            & svg {
                 width: 35px;
                 height: 35px;
             }
@@ -134,6 +139,7 @@
 
 .register {
     margin-left: 340px;
+
     &__form {
         max-width: 600px;
 
@@ -182,10 +188,11 @@ header {
     left: 0;
     right: 0;
     width: 100%;
-    z-index: $z_modal;
+    z-index: $z_fixed;
     background-color: $bg_color;
+
     & .header__inner {
-    height: 120px;
+        height: 120px;
         padding: $pd_small;
         display: flex;
         align-items: center;
@@ -216,49 +223,58 @@ header {
     }
 }
 
-.settings{
-    margin-left: 340px;
-    &__down{
+.settings {
+    // margin-left: 340px;
+    padding-left: 340px;
+
+    &__down {
         margin-top: 30px;
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
         align-items: center;
     }
-    &__form{
+
+    &__form {
         width: 100%;
-        &-input{
+
+        &-input {
             width: 48%;
             margin-bottom: 10px;
+
             & input,
-            & select{
+            & select {
                 margin-top: 5px;
                 width: 100%;
             }
         }
-        &-img{
+
+        &-img {
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 300px;
             height: 300px;
-            & img{
+
+            & img {
                 width: 100%;
                 height: 100%;
                 border-radius: 50%;
             }
-            &-input{
+
+            &-input {
                 cursor: pointer;
                 position: absolute;
                 width: 80px;
                 height: 80px;
                 border-radius: 50% !important;
-                background-color: $primary_color !important;
+                background-color: $primary_color  !important;
                 right: -15px;
                 bottom: -15px;
                 font-size: 0 !important;
-                &::before{
+
+                &::before {
                     content: '';
                     position: absolute;
                     top: 50%;
@@ -271,31 +287,37 @@ header {
                 }
             }
         }
-        &-buttons{
+
+        &-buttons {
             // display: flex;
             // align-items: center;
             // justify-content: space-between;
             float: right;
         }
     }
-    &__block{
+
+    &__block {
         display: flex;
         // align-items: center;
         justify-content: space-between;
     }
-    &__left{
+
+    &__left {
         width: 65%;
     }
-    &__right{
+
+    &__right {
         width: 30%;
     }
-    &__banners{
+
+    &__banners {
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
     }
-    &__banner{
+
+    &__banner {
         width: 100%;
         padding: $pd_plate;
         display: flex;
@@ -306,42 +328,89 @@ header {
         border-radius: $plate_radius;
         margin-bottom: 60px;
         transition: all 0.2s ease-in-out;
-        &-title{
+
+        &-title {
             margin-bottom: 20px;
         }
-        &:hover{
+
+        &:hover {
             border: 2px solid $primary_color;
+        }
+    }
+
+    &__modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.25);
+        z-index: 998;
+
+        &-window {
+            position: fixed;
+            padding: $pd_block;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: $z_modal;
+            background-color: $bg_color;
+            border-radius: $plate_radius;
+            min-width: 370px;
+        }
+
+        &-form{
+            &-input{
+                & input{
+                    width: 100%;
+                }
+            }
+            &-button{
+                width: 100%;
+            }
+        }
+
+        &-close{
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
         }
     }
 }
 
-.password{
+.password {
     margin-left: 340px;
 }
 
-.payment{
+.payment {
     margin-left: 340px;
 }
 
-.loading{
+.loading {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     z-index: $z_modal;
-    &__inner{
+
+    &__inner {
         width: 100%;
         height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    &__logo{
+
+    &__logo {
         display: flex;
         justify-content: center;
         align-items: center;
-        &::before{
+
+        &::before {
             content: '';
             width: 70px;
             height: 70px;
@@ -351,8 +420,9 @@ header {
             animation: loading 1s linear infinite;
         }
     }
-    @keyframes loading{
-        to{
+
+    @keyframes loading {
+        to {
             transform: rotate(1turn);
         }
     }
