@@ -13,19 +13,19 @@ function SideBar({ language, step }) {
     ]
 
     return (
-        <aside className="aside">
+        <aside className="aside__auth">
             <div className="aside__inner inner-mini">
-                <div className="aside__steps">
+                <div className="aside__auth-steps">
                     {
                         stepItems.map((stepItem, key) => (
-                            <div className="aside__step" key={key} >
-                                <div className="aside__step-left">
-                                    <div className={step === key + 1 ? 'aside__step-circle active' : 'aside__step-circle'}>
+                            <div className="aside__auth-step" key={key} >
+                                <div className="aside__auth-step_left">
+                                    <div className={step === key + 1 ? 'aside__auth-step_circle active' : 'aside__auth-step_circle'}>
                                         <h1>{key + 1}</h1>
                                     </div>
                                 </div>
-                                <div className="aside__step-right">
-                                    <div className="aside__step-title">
+                                <div className="aside__auth-step-right">
+                                    <div className="aside__auth-step_title">
                                         <h1>{stepItem.step}</h1>
                                     </div>
                                 </div>

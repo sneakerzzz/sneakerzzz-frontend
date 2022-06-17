@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom"
 import api from "../constans/api"
 import { useContext, useEffect, useState } from "react"
 import axios from "axios"
@@ -6,9 +5,10 @@ import { GlobalContext } from "../context/GlobalState"
 
 function useCookie() {
 
-    const { cookie, setUser, user } = useContext(GlobalContext)
+    const { cookie } = useContext(GlobalContext)
     const [userLoading, setUserLoading] = useState(false)
     const [trigger, setTrigger] = useState(false)
+    const [user, setUser] = useState()
 
     useEffect(() => {
         setUserLoading(false)

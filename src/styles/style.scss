@@ -2,7 +2,7 @@
 @import 'vars';
 @import 'global';
 
-.aside {
+aside {
     width: 340px;
     position: fixed;
     bottom: 0;
@@ -10,14 +10,75 @@
     z-index: $z_fixed;
     border-right: 2px solid $bg_color_lighter;
 
-    &__inner {
+    & .aside__inner {
         display: flex;
         flex-direction: column;
         height: calc(100vh - 120px);
         justify-content: space-between;
     }
+}
 
-    &__steps {
+.aside__settings {
+    &-link {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 30px;
+        color: $secondary_color;
+        transition: all 0.2s ease-in-out;
+
+        &.active {
+            color: $primary_color;
+            border-left: 5px solid $primary_color;
+
+            & svg {
+                fill: $primary_color;
+            }
+        }
+
+        &:hover {
+            color: $primary_color;
+
+            & svg {
+                fill: $primary_color;
+            }
+        }
+
+        &_img {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+
+            & svg {
+                width: 23px;
+                height: 23px;
+                fill: $secondary_color;
+                transition: all 0.2s ease-in-out;
+            }
+        }
+    }
+
+    &-signout {
+        cursor: pointer;
+        justify-self: flex-end;
+        display: flex;
+        align-items: center;
+        margin: 30px;
+
+        &_img {
+            margin-right: 20px;
+
+            & svg {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    }
+}
+
+.aside__auth {
+
+    &-steps {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -25,17 +86,17 @@
         overflow: auto;
     }
 
-    &__step {
+    &-step {
         display: flex;
         align-items: center;
         width: 100%;
         margin-bottom: 30px;
 
-        &-left {
+        &_left {
             margin-right: 35px;
         }
 
-        &-circle {
+        &_circle {
             border-radius: 50%;
             background-color: $bg_color;
             color: $secondary_color;
@@ -54,68 +115,12 @@
             }
         }
     }
-
-    &__nav {
-        &-link {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            padding: 30px;
-            color: $secondary_color;
-            transition: all 0.2s ease-in-out;
-
-            &.active {
-                color: $primary_color;
-                border-left: 5px solid $primary_color;
-
-                & .aside__nav-link-img svg {
-                    fill: $primary_color;
-                }
-            }
-
-            &:hover {
-                color: $primary_color;
-
-                & .aside__nav-link-img svg {
-                    fill: $primary_color;
-                }
-            }
-
-            &-img {
-                margin-right: 20px;
-                display: flex;
-                align-items: center;
-
-                & svg {
-                    width: 23px;
-                    height: 23px;
-                    fill: $secondary_color;
-                    transition: all 0.2s ease-in-out;
-                }
-            }
-        }
-    }
-
-    &__signout {
-        cursor: pointer;
-        justify-self: flex-end;
-        display: flex;
-        align-items: center;
-        margin: 30px;
-
-        &-img {
-            margin-right: 20px;
-
-            & svg {
-                width: 35px;
-                height: 35px;
-            }
-        }
-    }
 }
 
+
+
 .login {
-    margin-left: 340px;
+    padding-left: 340px;
 
     &__form {
         max-width: 600px;
@@ -138,7 +143,7 @@
 }
 
 .register {
-    margin-left: 340px;
+    padding-left: 340px;
 
     &__form {
         max-width: 600px;
@@ -224,7 +229,6 @@ header {
 }
 
 .settings {
-    // margin-left: 340px;
     padding-left: 340px;
 
     &__down {
@@ -344,7 +348,7 @@ header {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.25);
+        background: rgba(0, 0, 0, 0.25);
         z-index: 998;
 
         &-window {
@@ -359,18 +363,19 @@ header {
             min-width: 370px;
         }
 
-        &-form{
-            &-input{
-                & input{
+        &-form {
+            &-input {
+                & input {
                     width: 100%;
                 }
             }
-            &-button{
+
+            &-button {
                 width: 100%;
             }
         }
 
-        &-close{
+        &-close {
             width: 20px;
             height: 20px;
             position: absolute;
@@ -382,11 +387,11 @@ header {
 }
 
 .password {
-    margin-left: 340px;
+    padding-left: 340px;
 }
 
 .payment {
-    margin-left: 340px;
+    padding-left: 340px;
 }
 
 .loading {

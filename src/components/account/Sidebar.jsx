@@ -58,30 +58,30 @@ function Sidebar({ user, cookie }) {
     }
 
     return (
-        <aside className="aside">
+        <aside className="aside__settings">
             <div className="aside__inner">
-                <ol className="aside__nav">
+                <div className="aside__settings-nav">
                     {
                         links.map((link, key) => (
                             <NavLink key={key} end to={link.link} className={({ isActive }) => {
                                 if (isActive) {
-                                    return 'active aside__nav-link'
+                                    return 'active aside__settings-link'
                                 } else {
-                                    return 'aside__nav-link'
+                                    return 'aside__settings-link'
                                 }
                             }}>
-                                <div className="aside__nav-link-img">
+                                <div className="aside__settings-link_img">
                                     {link.img}
                                 </div>
-                                <div className="aside__nav-link-title">
+                                <div className="aside__settings-link_title">
                                     <h1>{link.title}</h1>
                                 </div>
                             </NavLink>
                         ))
                     }
-                </ol>
-                <div onClick={(e) => deleteSessionRequest(e)} className="aside__signout">
-                    <div className="aside__signout-img">
+                </div>
+                <div onClick={(e) => deleteSessionRequest(e)} className="aside__settings-signout">
+                    <div className="aside__settings-signout_img">
                         <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                             width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"
                             preserveAspectRatio="xMidYMid meet">
@@ -92,7 +92,7 @@ function Sidebar({ user, cookie }) {
                             </g>
                         </svg>
                     </div>
-                    <div className="aside__signout-title">
+                    <div className="aside__settings-signout_title">
                         <h1>{language.account.buttons.signout}</h1>
                     </div>
                 </div>
