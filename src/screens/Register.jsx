@@ -1,4 +1,4 @@
-import { useLanguage, useCookie } from "../hooks";
+import { useLanguage } from "../hooks";
 import { useState } from "react";
 import { StepOne, Sidebar, StepTwo, StepThree } from "../components/register";
 import { Helmet } from 'react-helmet'
@@ -26,24 +26,24 @@ function Register({ user, userLoading }) {
                                 step === 1 ?
                                     (
                                         <>
-                                            <Sidebar language={language} step={step} />
                                             <StepOne setCookie={setCookie} language={language} step={step} setStep={setStep} />
+                                            <Sidebar language={language} step={step} />
                                         </>
                                     )
                                     :
                                     step === 2 ?
                                         (
                                             <>
-                                                <Sidebar language={language} step={step} />
                                                 <StepTwo cookie={cookie} language={language} step={step} setStep={setStep} />
+                                                <Sidebar language={language} step={step} />
                                             </>
                                         )
                                         :
                                         step === 3 ?
                                             (
                                                 <>
-                                                    <Sidebar language={language} step={step} />
                                                     <StepThree cookie={cookie} language={language} setStep={setStep} />
+                                                    <Sidebar language={language} step={step} />
                                                 </>
                                             )
                                             :

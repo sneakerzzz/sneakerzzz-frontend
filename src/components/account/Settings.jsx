@@ -297,6 +297,14 @@ function Settings({ user, cookie, setTrigger }) {
         }
     }
 
+    // function test() {
+    //     axios.get(`${api.url}/api/product/random?lang=en`).then(response => {
+    //         console.log(response.data);
+    //     })
+    // }
+
+    // test()
+
     return (
         <section className="settings">
             <div className="container">
@@ -317,7 +325,7 @@ function Settings({ user, cookie, setTrigger }) {
                                         }
                                         <input onChange={(e) => {
                                             handleImageChange(e)
-                                        }} type="file" className="settings__form-img-input" />
+                                        }} type="file" className="settings__form-img_input" />
                                     </div>
                                 </div>
                                 <div className="settings__down">
@@ -389,13 +397,13 @@ function Settings({ user, cookie, setTrigger }) {
                                             <h1>{language.account.settings.inputs.changeEmail}</h1>
                                         </div>
                                         <form onSubmit={(e) => changeEmailRequest(e)} className="settings__modal-form">
-                                            <div className="settings__modal-form-input sub-title">
+                                            <div className="settings__modal-form_input sub-title">
                                                 <input placeholder={language.account.settings.inputs.newEmail} value={newEmail} type="text" onChange={(e) => setNewEmail(e.target.value)} />
                                             </div>
-                                            <div className="settings__modal-form-input sub-title">
+                                            <div className="settings__modal-form_input sub-title">
                                                 <input placeholder={language.account.settings.inputs.password} value={_password} type="password" onChange={(e) => _setPassword(e.target.value)} />
                                             </div>
-                                            <button onClick={(e) => changeEmailRequest(e)} className="settings__modal-form-button" type="submit">{language.account.settings.buttons.change}</button>
+                                            <button onClick={(e) => changeEmailRequest(e)} className="settings__modal_form-button" type="submit">{language.account.settings.buttons.change}</button>
                                         </form>
                                     </div>
                                 </div>
@@ -415,16 +423,16 @@ function Settings({ user, cookie, setTrigger }) {
                                             <h1>{language.account.settings.inputs.changePassword}</h1>
                                         </div>
                                         <form onSubmit={(e) => changePasswordRequest(e)} className="settings__modal-form">
-                                            <div className="settings__modal-form-input sub-title">
+                                            <div className="settings__modal-form_input sub-title">
                                                 <input placeholder={language.account.settings.inputs.newPassword} value={newPassword} type="text" onChange={(e) => setNewPassword(e.target.value)} />
                                             </div>
-                                            <div className="settings__modal-form-input sub-title">
+                                            <div className="settings__modal-form_input sub-title">
                                                 <input placeholder={language.account.settings.inputs.confirmNewPassword} value={confirmNewPassword} type="text" onChange={(e) => setConfirmNewPassword(e.target.value)} />
                                             </div>
-                                            <div className="settings__modal-form-input sub-title">
+                                            <div className="settings__modal-form_input sub-title">
                                                 <input placeholder={language.account.settings.inputs.password} value={_password} type="password" onChange={(e) => _setPassword(e.target.value)} />
                                             </div>
-                                            <button onClick={(e) => changePasswordRequest(e)} className="settings__modal-form-button" type="submit">{language.account.settings.buttons.change}</button>
+                                            <button onClick={(e) => changePasswordRequest(e)} className="settings__modal-form_button" type="submit">{language.account.settings.buttons.change}</button>
                                         </form>
                                     </div>
                                 </div>
@@ -444,10 +452,10 @@ function Settings({ user, cookie, setTrigger }) {
                                             <h1>{language.account.settings.inputs.deleteAccount}</h1>
                                         </div>
                                         <form className="settings__modal-form" onSubmit={(e) => deleteAccountRequest(e)}>
-                                            <div className="settings__modal-form-input sub-title">
+                                            <div className="settings__modal-form_input sub-title">
                                                 <input placeholder={language.account.settings.inputs.password} value={_password} type="text" onChange={(e) => _setPassword(e.target.value)} />
                                             </div>
-                                            <button onClick={(e) => deleteAccountRequest(e)} className="settings__modal-form-button" type="submit">{language.account.settings.buttons.delete}</button>
+                                            <button onClick={(e) => deleteAccountRequest(e)} className="settings__modal-form_button" type="submit">{language.account.settings.buttons.delete}</button>
                                         </form>
                                     </div>
                                 </div>

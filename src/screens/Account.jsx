@@ -14,13 +14,18 @@ function Account({ user, userLoading, cookie, setTrigger }) {
             {
                 userLoading ?
                     (
-                        <>
-                            <Sidebar user={user} cookie={cookie} userLoading={userLoading} />
-                            <Routes>
-                                <Route index element={<Settings user={user} cookie={cookie} setTrigger={setTrigger} />} />
-                                <Route path="/payment" element={<Payment user={user} cookie={cookie} />} />
-                            </Routes>
-                        </>
+                        user ?
+                            (
+                                <>
+                                    <Sidebar user={user} cookie={cookie} userLoading={userLoading} />
+                                    <Routes>
+                                        <Route index element={<Settings user={user} cookie={cookie} setTrigger={setTrigger} />} />
+                                        <Route path="/payment" element={<Payment user={user} cookie={cookie} />} />
+                                    </Routes>
+                                </>
+                            )
+                            :
+                            null
                     )
                     :
                     <Loading />

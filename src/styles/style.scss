@@ -1,5 +1,6 @@
-@import 'reset';
+// @import 'adaptive';
 @import 'vars';
+@import 'reset';
 @import 'global';
 
 aside {
@@ -93,7 +94,11 @@ aside {
         margin-bottom: 30px;
 
         &_left {
-            margin-right: 35px;
+            width: 25%;
+        }
+
+        &_right {
+            width: 75%;
         }
 
         &_circle {
@@ -111,7 +116,15 @@ aside {
             &.active {
                 background-color: $primary_color;
                 color: $bg_color;
-                border: 1px solid $primary_color
+                border: 1px solid $primary_color;
+            }
+        }
+
+        &.active {
+            & .aside__auth-step_circle {
+                background-color: $primary_color;
+                color: $bg_color;
+                border: 1px solid $primary_color;
             }
         }
     }
@@ -120,8 +133,6 @@ aside {
 
 
 .login {
-    padding-left: 340px;
-
     &__form {
         max-width: 600px;
 
@@ -143,8 +154,6 @@ aside {
 }
 
 .register {
-    padding-left: 340px;
-
     &__form {
         max-width: 600px;
 
@@ -229,8 +238,6 @@ header {
 }
 
 .settings {
-    padding-left: 340px;
-
     &__down {
         margin-top: 30px;
         display: flex;
@@ -267,7 +274,7 @@ header {
                 border-radius: 50%;
             }
 
-            &-input {
+            &_input {
                 cursor: pointer;
                 position: absolute;
                 width: 80px;
@@ -364,13 +371,13 @@ header {
         }
 
         &-form {
-            &-input {
+            &_input {
                 & input {
                     width: 100%;
                 }
             }
 
-            &-button {
+            &_button {
                 width: 100%;
             }
         }
@@ -384,14 +391,6 @@ header {
             cursor: pointer;
         }
     }
-}
-
-.password {
-    padding-left: 340px;
-}
-
-.payment {
-    padding-left: 340px;
 }
 
 .loading {

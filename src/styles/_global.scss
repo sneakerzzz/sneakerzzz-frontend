@@ -48,7 +48,7 @@
 }
 
 .inner{
-    padding: $pd-medium;
+    padding: $pd-big;
     &-mini{
         padding: $pd-block;
     }
@@ -56,4 +56,11 @@
 
 form{
     margin-top: 40px;
+}
+
+section{
+    padding-left: 340px;
+    &.loading{
+        padding-left: 0;
+    }
 }

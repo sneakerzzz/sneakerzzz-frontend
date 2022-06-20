@@ -24,7 +24,7 @@ function SideBar({ language, step }) {
                                         <h1>{key + 1}</h1>
                                     </div>
                                 </div>
-                                <div className="aside__auth-step-right">
+                                <div className="aside__auth-step_right">
                                     <div className="aside__auth-step_title">
                                         <h1>{stepItem.step}</h1>
                                     </div>
