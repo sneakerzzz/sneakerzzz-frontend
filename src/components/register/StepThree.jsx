@@ -3,13 +3,14 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import api from "../../constans/api";
 import { useEffect } from "react";
+import { responseHandler } from "../../hooks";
 
 
 function StepThree({ language, setStep, cookie }) {
 
     const history = useNavigate()
-    const [requestResult, setRequestResult] = useState({})
     const [lang, setLang] = useState()
+    const dispatcher = responseHandler()
 
     useEffect(() => {
         setLang(language.lang)
@@ -17,37 +18,21 @@ function StepThree({ language, setStep, cookie }) {
 
     function changeLangRequest(e) {
         e.preventDefault()
-        setRequestResult({})
-        axios.post(`${api.url}/api/account/change-lang`, {
+        axios.post(`${api.url}/api/account/change-lang?lang=${language.lang}`, {
             lang: lang,
             sessionID: cookie
         }).then(response => {
-            console.log(response);
+            dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
             if (response.data.success) {
-                if (response.data.message === 'Language has been changed successfully') {
-                    setRequestResult({ message: language.notification.successfulLangChange, success: true })
-                }
                 setStep(1)
                 setLang()
                 history('/login')
-            } else {
-                if (response.data.message === 'Error') {
-                    setRequestResult({ message: language.notification.error, success: false })
-                }
-                if (response.data.message === 'Missing fields') {
-                    setRequestResult({ message: language.notification.missingFields, success: false })
-                }
-                if (response.data.message === 'Session not found') {
-                    setRequestResult({ message: language.notification.sessionNotFound, success: false })
-                }
-            }
+            } 
         }).catch(error => {
-            console.log(error);
-            setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
+            dispatcher({ message: 'Error', title: 'Alert', type: false })
         })
     }
 
-    console.log(requestResult);
 
     return (
         <section className="register">

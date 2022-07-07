@@ -1,7 +1,10 @@
 import api from "../../constans/api"
 import { Link } from "react-router-dom"
+import { useLanguage } from "../../hooks"
 
 function Header({ user, userLoading }) {
+
+    const language = useLanguage({})
 
     return (
         <header>
@@ -31,7 +34,7 @@ function Header({ user, userLoading }) {
                                         )
                                         :
                                         <Link to="/login" className="header__register">
-                                            <button type="button" className="header__register-button">Login</button>
+                                            <button type="button" className="header__register-button">{language.login.stepOne.buttons.login}</button>
                                         </Link>
                                 )
                                 :

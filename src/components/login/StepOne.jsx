@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../../constans/api";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalState";
-
+import { responseHandler } from '../../hooks'
 
 function StepOne({ language, setStep }) {
 
@@ -12,45 +12,27 @@ function StepOne({ language, setStep }) {
 
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [requestResult, setRequestResult] = useState({})
     const { setCookie } = useContext(GlobalContext)
+    const dispatcher = responseHandler()
 
     function loginRequest(e) {
         e.preventDefault()
-        setRequestResult({})
-        axios.post(`${api.url}/api/account/login`, {
+        axios.post(`${api.url}/api/account/login?lang=${language.lang}`, {
             email: email,
             password: password
         }).then(response => {
+            dispatcher({message: response.data.message, title: 'Alert', type: response.data.success})
             if (response.data.success) {
-                if (response.data.message === 'Login successful') {
-                    setRequestResult({ message: language.notification.successfulLogin, success: true })
-                }
                 setCookie(response.data.sessionID)
                 setStep(1)
                 setEmail('')
                 setPassword('')
                 history('/')
-            } else {
-                if (response.data.message === 'Error') {
-                    setRequestResult({ message: language.notification.error, success: false })
-                }
-                if (response.data.message === 'Missing fields') {
-                    setRequestResult({ message: language.notification.missingFields, success: false })
-                }
-                if (response.data.message === 'User not found') {
-                    setRequestResult({ message: language.notification.userNotFound, success: false })
-                }
-                if (response.data.message === 'Incorrect password') {
-                    setRequestResult({ message: language.notification.incorrectPassword, success: false })
-                }
             }
         }).catch(error => {
-            setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
+            dispatcher({message: 'Error', title: 'Alert', type: false})
         })
     }
-
-    console.log(requestResult);
 
     return (
         <section className="login">

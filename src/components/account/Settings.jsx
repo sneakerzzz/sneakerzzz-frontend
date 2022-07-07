@@ -4,6 +4,7 @@ import api from "../../constans/api"
 import axios from "axios"
 import images from "../../constans/images"
 import { useNavigate } from "react-router-dom"
+import { responseHandler } from "../../hooks"
 
 function Settings({ user, cookie, setTrigger }) {
 
@@ -16,7 +17,6 @@ function Settings({ user, cookie, setTrigger }) {
     const [password, setPassword] = useState('')
     const [previewUploaded, setPreviewUploaded] = useState(false)
     const [previewImg, setPreviewImg] = useState()
-    const [requestResults, setRequestResults] = useState([])
     const [changeEmailModal, setChangeEmailModal] = useState(false)
     const [changePasswordModal, setChangePasswordModal] = useState(false)
     const [deleteAccountModal, setDeleteAccountModal] = useState(false)
@@ -26,6 +26,7 @@ function Settings({ user, cookie, setTrigger }) {
     const [_password, _setPassword] = useState('')
 
     const navigate = useNavigate()
+    const dispatcher = responseHandler()
 
     useEffect(() => {
         setUsername(user.username)
@@ -37,61 +38,32 @@ function Settings({ user, cookie, setTrigger }) {
 
     function updateAccountRequest(e) {
         e.preventDefault()
-        setRequestResults([])
         if (username !== user.username) {
-            axios.post(`${api.url}/api/account/change-username`, {
+            axios.post(`${api.url}/api/account/change-username?lang=${language.lang}`, {
                 username: username,
                 sessionID: cookie
             }).then(response => {
-                console.log(response);
+                dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
                 if (response.data.success) {
-                    if (response.data.message === 'Username has been changed successfully') {
-                        setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
-                    }
                     setUsername(user.username)
                     setTrigger(true)
-                } else {
-                    if (response.data.message === 'Error') {
-                        setRequestResults([...requestResults, { message: language.notification.error, success: false }])
-                    }
-                    if (response.data.message === 'Missing fields') {
-                        setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
-                    }
-                    if (response.data.message === 'Session not found') {
-                        setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
-                    }
                 }
             }).catch(error => {
-                console.log(error);
-                setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
+                dispatcher({ message: 'Error', title: 'Alert', type: false })
             })
         }
         if (lang !== user.lang) {
-            axios.post(`${api.url}/api/account/change-lang`, {
+            axios.post(`${api.url}/api/account/change-lang?lang=${language.lang}`, {
                 lang: lang,
                 sessionID: cookie
             }).then(response => {
-                console.log(response);
+                dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
                 if (response.data.success) {
-                    if (response.data.message === 'Language has been changed successfully') {
-                        setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
-                    }
                     setLang(user.username)
                     setTrigger(true)
-                } else {
-                    if (response.data.message === 'Error') {
-                        setRequestResults([...requestResults, { message: language.notification.error, success: false }])
-                    }
-                    if (response.data.message === 'Missing fields') {
-                        setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
-                    }
-                    if (response.data.message === 'Session not found') {
-                        setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
-                    }
                 }
             }).catch(error => {
-                console.log(error);
-                setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
+                dispatcher({ message: 'Error', title: 'Alert', type: false})
             })
         }
         if (img !== user.img) {
@@ -100,152 +72,78 @@ function Settings({ user, cookie, setTrigger }) {
             formData.append('sessionID', cookie)
 
             axios({
-                url: `${api.url}/api/account/change-img`,
+                url: `${api.url}/api/account/change-img?lang=${language.lang}`,
                 method: 'post',
                 data: formData
             }).then(response => {
-                console.log(response);
+                dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
                 if (response.data.success) {
-                    if (response.data.message === 'Image has been changed successfully') {
-                        setRequestResults([...requestResults, { message: language.notification.successfulImgChange, success: true }])
-                    }
                     setImg(user.img)
                     setTrigger(true)
-                } else {
-                    if (response.data.message === 'Error') {
-                        setRequestResults([...requestResults, { message: language.notification.error, success: false }])
-                    }
-                    if (response.data.message === 'Missing fields') {
-                        setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
-                    }
-                    if (response.data.message === 'Session not found') {
-                        setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
-                    }
                 }
             }).catch(error => {
-                console.log(error);
-                setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
+                dispatcher({ message: 'Error', title: 'Alert', type: false })
             })
         }
     }
 
     function changeEmailRequest(e) {
         e.preventDefault()
-        setRequestResults([])
-        axios.post(`${api.url}/api/account/change-email`, {
+        axios.post(`${api.url}/api/account/change-email?lang=${language.lang}`, {
             newEmail: newEmail,
             password: _password,
             sessionID: cookie
         }).then(response => {
-            console.log(response);
+            dispatcher({message: response.data.message, title: 'Alert', type: response.data.success})
             if (response.data.success) {
-                if (response.data.message === 'Email has been changed successfully') {
-                    setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
-                }
                 emailModal(false)
                 setTrigger(true)
                 setNewEmail('')
                 _setPassword('')
-            } else {
-                if (response.data.message === 'Error') {
-                    setRequestResults([...requestResults, { message: language.notification.error, success: false }])
-                }
-                if (response.data.message === 'Missing fields') {
-                    setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
-                }
-                if (response.data.message === 'Session not found') {
-                    setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
-                }
-                if (response.data.message === 'Incorrect password') {
-                    setRequestResults([...requestResults, { message: language.notification.incorrectPassword, success: false }])
-                }
-                if (response.data.message === 'Email already exists') {
-                    setRequestResults([...requestResults, { message: language.notification.emailAlreadyExists, success: false }])
-                }
             }
         }).catch(error => {
-            console.log(error);
-            setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
+            dispatcher({message: 'Error', title: 'Alert', type: false})
         })
     }
 
     function changePasswordRequest(e) {
         e.preventDefault()
-        console.log(confirmNewPassword, newPassword, _password);
-        setRequestResults([])
-        axios.post(`${api.url}/api/account/change-password`, {
+        axios.post(`${api.url}/api/account/change-password?lang=${language.lang}`, {
             newPassword: newPassword,
             confirmNewPassword: confirmNewPassword,
             password: _password,
             sessionID: cookie
         }).then(response => {
-            console.log(response);
+            dispatcher({message: response.data.message, title: 'Alert', type: response.data.success})
             if (response.data.success) {
-                if (response.data.message === 'Password has been changed successfully') {
-                    setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
-                }
                 passwordModal(false)
                 setTrigger(true)
                 setNewPassword('')
                 setConfirmNewPassword('')
                 _setPassword('')
-            } else {
-                if (response.data.message === 'Error') {
-                    setRequestResults([...requestResults, { message: language.notification.error, success: false }])
-                }
-                if (response.data.message === 'Missing fields') {
-                    setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
-                }
-                if (response.data.message === 'Session not found') {
-                    setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
-                }
-                if (response.data.message === 'Incorrect password') {
-                    setRequestResults([...requestResults, { message: language.notification.incorrectPassword, success: false }])
-                }
             }
         }).catch(error => {
-            console.log(error);
-            setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
+            dispatcher({message: 'Error', title: 'Alert', type: false})
         })
     }
 
     function deleteAccountRequest(e) {
         e.preventDefault()
-        setRequestResults([])
-        axios.post(`${api.url}/api/account/delete-user`, {
+        axios.post(`${api.url}/api/account/delete-user?lang=${language.lang}`, {
             sessionID: cookie,
             password: _password
         }).then(response => {
-            console.log(response);
+            dispatcher({message: response.data.message, title: 'Alert', type: response.data.success})
             if (response.data.success) {
-                if (response.data.message === 'User was deleted succesfully') {
-                    setRequestResults([...requestResults, { message: language.notification.successfulLangChange, success: true }])
-                }
                 accountModal(false)
                 setTrigger(true)
                 _setPassword('')
                 navigate('/')
-            } else {
-                if (response.data.message === 'Error') {
-                    setRequestResults([...requestResults, { message: language.notification.error, success: false }])
-                }
-                if (response.data.message === 'Missing fields') {
-                    setRequestResults([...requestResults, { message: language.notification.missingFields, success: false }])
-                }
-                if (response.data.message === 'Session not found') {
-                    setRequestResults([...requestResults, { message: language.notification.sessionNotFound, success: false }])
-                }
-                if (response.data.message === 'Incorrect password') {
-                    setRequestResults([...requestResults, { message: language.notification.incorrectPassword, success: false }])
-                }
             }
         }).catch(error => {
-            console.log(error);
-            setRequestResults([...requestResults, { message: language.notification.serverIsNotAvailable, success: false }])
+            dispatcher({message: 'Error', title: 'Alert', type: false})
         })
     }
-
-    console.log(requestResults);
 
     function handleImageChange(e) {
         if (e.target.files && e.target.files[0]) {
@@ -403,7 +301,7 @@ function Settings({ user, cookie, setTrigger }) {
                                             <div className="settings__modal-form_input sub-title">
                                                 <input placeholder={language.account.settings.inputs.password} value={_password} type="password" onChange={(e) => _setPassword(e.target.value)} />
                                             </div>
-                                            <button onClick={(e) => changeEmailRequest(e)} className="settings__modal_form-button" type="submit">{language.account.settings.buttons.change}</button>
+                                            <button onClick={(e) => changeEmailRequest(e)} className="settings__modal-form_button" type="submit">{language.account.settings.buttons.change}</button>
                                         </form>
                                     </div>
                                 </div>

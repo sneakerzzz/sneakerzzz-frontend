@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import { Link } from "react-router-dom";
 import api from "../../constans/api";
+import { responseHandler } from "../../hooks";
 
 
 function StepOne({ language, setStep, setCookie }) {
@@ -11,7 +12,7 @@ function StepOne({ language, setStep, setCookie }) {
     const [email, setEmail] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [lang, setlang] = useState('')
-    const [requestResult, setRequestResult] = useState({})
+    const dispatcher = responseHandler()
 
     useEffect(() => {
         setlang(language.lang)
@@ -19,47 +20,26 @@ function StepOne({ language, setStep, setCookie }) {
 
     function registerRequest(e) {
         e.preventDefault()
-        setRequestResult({})
-            axios.post(`${api.url}/api/account/register`, {
-                username: username,
-                password: password,
-                lang: lang,
-                email: email,
-                confirmPassword: confirmPassword
-            }).then(response => {
-                if (response.data.success) {
-                    if (response.data.message === 'Registration successful') {
-                        setRequestResult({ message: language.notification.successfulRegister, success: true })
-                    }
-                    setCookie(response.data.sessionID)
-                    setStep(2)
-                    setUsername('')
-                    setPassword('')
-                    setEmail('')
-                    setConfirmPassword('')
-                } else {
-                    if (response.data.message === 'Error') {
-                        setRequestResult({ message: language.notification.error, success: false })
-                    }
-                    if (response.data.message === 'Missing fields') {
-                        setRequestResult({ message: language.notification.missingFields, success: false })
-                    }
-                    if (response.data.message === 'Email already exists') {
-                        setRequestResult({ message: language.notification.emailAlreadyExists, success: false })
-                    }
-                    if (response.data.message === 'Passwords do not match') {
-                        setRequestResult({ message: language.notification.passwordsDoNotMatch, success: false })
-                    }
-                    if (response.data.message === 'Email is not valid') {
-                        setRequestResult({ message: language.notification.emailIsNotValid, success: false })
-                    }
-                }
-            }).catch(error => {
-                setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
-            })
+        axios.post(`${api.url}/api/account/register?lang=${language.lang}`, {
+            username: username,
+            password: password,
+            lang: lang,
+            email: email,
+            confirmPassword: confirmPassword
+        }).then(response => {
+            dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
+            if (response.data.success) {
+                setCookie(response.data.sessionID)
+                setStep(2)
+                setUsername('')
+                setPassword('')
+                setEmail('')
+                setConfirmPassword('')
+            }
+        }).catch(error => {
+            dispatcher({message: 'Error', title: 'Alert', type: false})
+        })
     }
-
-    console.log(requestResult);
 
     return (
         <section className="register">
@@ -70,10 +50,10 @@ function StepOne({ language, setStep, setCookie }) {
                     </div>
                     <form onSubmit={(e) => registerRequest(e)} className="register__form">
                         <div className="register__form-input">
-                            <input value={username} type="text" onChange={(e) => setUsername(e.target.value)} placeholder={language.register.stepOne.inputs.username} />
+                            <input value={email} type="text" onChange={(e) => setEmail(e.target.value)} placeholder={language.register.stepOne.inputs.email} />
                         </div>
                         <div className="register__form-input">
-                            <input value={email} type="text" onChange={(e) => setEmail(e.target.value)} placeholder={language.register.stepOne.inputs.email} />
+                            <input value={username} type="text" onChange={(e) => setUsername(e.target.value)} placeholder={language.register.stepOne.inputs.username} />
                         </div>
                         <div className="register__form-input">
                             <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder={language.register.stepOne.inputs.password} />

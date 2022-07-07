@@ -1,58 +1,34 @@
 import { useState } from "react";
 import axios from 'axios'
 import api from "../../constans/api";
-
+import { responseHandler } from "../../hooks";
 
 function StepTwo({ language, setStep, cookie }) {
 
     const [img, setImg] = useState()
     const [previewImg, setPreviewImg] = useState()
     const [previewUploaded, setPreviewUploaded] = useState(false)
-    const [requestResult, setRequestResult] = useState({})
+    const dispatcher = responseHandler()
 
     function changeImgRequest(e) {
         e.preventDefault()
-        setRequestResult({})
 
         let formData = new FormData()
         formData.append('img', img)
         formData.append('sessionID', cookie)
-
-        console.log(formData);
-        console.log(cookie);
-        console.log(img);
-
-        if (img) {
-            axios({
-                url: `${api.url}/api/account/change-img`,
-                method: 'post',
-                data: formData
-            }).then(response => {
-                console.log(response);
-                if (response.data.success) {
-                    if (response.data.message === 'Image has been changed successfully') {
-                        setRequestResult({ message: language.notification.successfulImgChange, success: true })
-                    }
-                    setStep(3)
-                    setImg()
-                } else {
-                    if (response.data.message === 'Error') {
-                        setRequestResult({ message: language.notification.error, success: false })
-                    }
-                    if (response.data.message === 'Missing fields') {
-                        setRequestResult({ message: language.notification.missingFields, success: false })
-                    }
-                    if (response.data.message === 'Session not found') {
-                        setRequestResult({ message: language.notification.sessionNotFound, success: false })
-                    }
-                }
-            }).catch(error => {
-                console.log(error);
-                setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
-            })
-        } else {
-            setRequestResult({ message: 'Missing fields', success: false })
-        }
+        axios({
+            url: `${api.url}/api/account/change-img?lang=${language.lang}`,
+            method: 'post',
+            data: formData
+        }).then(response => {
+            dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success})
+            if (response.data.success) {
+                setStep(3)
+                setImg()
+            }
+        }).catch(error => {
+            dispatcher({message: 'Error', title: 'Alert', type: false})
+        })
     }
 
     function handleImageChange(e) {
@@ -71,8 +47,6 @@ function StepTwo({ language, setStep, cookie }) {
             setImg()
         }
     }
-
-    console.log(requestResult);
 
     return (
         <section className="register">

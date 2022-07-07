@@ -9,6 +9,7 @@ function useCookie() {
     const [userLoading, setUserLoading] = useState(false)
     const [trigger, setTrigger] = useState(false)
     const [user, setUser] = useState()
+    console.log(cookie);
 
     useEffect(() => {
         setUserLoading(false)

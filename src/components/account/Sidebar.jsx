@@ -33,7 +33,7 @@ function Sidebar({ user, cookie }) {
     function deleteSessionRequest(e) {
         e.preventDefault()
         setRequestResult({})
-        axios.post(`${api.url}/api/account/delete-session`, {
+        axios.post(`${api.url}/api/account/delete-session?lang=${language.lang}`, {
             sessionID: cookie
         }).then(response => {
             console.log(response);
