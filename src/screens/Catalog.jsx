@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet"
-import { useCookie } from "../hooks"
 import Loading from "./Loading"
 
 function Catalog({ user, userLoading }) {

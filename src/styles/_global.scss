@@ -24,9 +24,9 @@
 
 .info{
     font-size: $p_font_size;
-    font-weight: $medium_font_weight;
+    font-weight: $light_font_weight;
     margin-top:5px;
-    color: $primary_color;
+    color: $secondary_color;
     line-height: 22px;
     transition: 0.4s ease;
 }
@@ -59,7 +59,6 @@ form{
 }
 
 section{
-    padding-left: 340px;
     &.loading{
         padding-left: 0;
     }

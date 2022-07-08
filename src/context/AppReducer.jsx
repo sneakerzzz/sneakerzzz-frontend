@@ -10,15 +10,15 @@ function AppReducer(state, action) {
                 ...state,
                 cookie: null
             }
-        case "SET_USER":
+        case "ADD_TO_FAVOURITES_LIST":
             return {
                 ...state,
-                user: action.payload
+                favouritesList: [action.payload, ...state.favouritesList],
             }
-        case "REMOVE_USER":
+        case "REMOVE_FROM_FAVOURITES_LIST":
             return {
                 ...state,
-                user: null
+                favouritesList: state.favouritesList.filter((product) => product.defaultArticle.code !== action.payload),
             }
         default:
             return state

@@ -6,9 +6,7 @@ import images from "../../constans/images"
 import { useNavigate } from "react-router-dom"
 import { responseHandler } from "../../hooks"
 
-function Settings({ user, cookie, setTrigger }) {
-
-    const language = useLanguage({ user })
+function Settings({ user, cookie, setTrigger, language }) {
 
     const [username, setUsername] = useState('')
     const [lang, setLang] = useState('')
@@ -24,6 +22,7 @@ function Settings({ user, cookie, setTrigger }) {
     const [newPassword, setNewPassword] = useState('')
     const [confirmNewPassword, setConfirmNewPassword] = useState('')
     const [_password, _setPassword] = useState('')
+    const [testimg, settsetimg] = useState()
 
     const navigate = useNavigate()
     const dispatcher = responseHandler()
@@ -63,7 +62,7 @@ function Settings({ user, cookie, setTrigger }) {
                     setTrigger(true)
                 }
             }).catch(error => {
-                dispatcher({ message: 'Error', title: 'Alert', type: false})
+                dispatcher({ message: 'Error', title: 'Alert', type: false })
             })
         }
         if (img !== user.img) {
@@ -94,7 +93,7 @@ function Settings({ user, cookie, setTrigger }) {
             password: _password,
             sessionID: cookie
         }).then(response => {
-            dispatcher({message: response.data.message, title: 'Alert', type: response.data.success})
+            dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
             if (response.data.success) {
                 emailModal(false)
                 setTrigger(true)
@@ -102,7 +101,7 @@ function Settings({ user, cookie, setTrigger }) {
                 _setPassword('')
             }
         }).catch(error => {
-            dispatcher({message: 'Error', title: 'Alert', type: false})
+            dispatcher({ message: 'Error', title: 'Alert', type: false })
         })
     }
 
@@ -114,7 +113,7 @@ function Settings({ user, cookie, setTrigger }) {
             password: _password,
             sessionID: cookie
         }).then(response => {
-            dispatcher({message: response.data.message, title: 'Alert', type: response.data.success})
+            dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
             if (response.data.success) {
                 passwordModal(false)
                 setTrigger(true)
@@ -123,7 +122,7 @@ function Settings({ user, cookie, setTrigger }) {
                 _setPassword('')
             }
         }).catch(error => {
-            dispatcher({message: 'Error', title: 'Alert', type: false})
+            dispatcher({ message: 'Error', title: 'Alert', type: false })
         })
     }
 
@@ -133,7 +132,7 @@ function Settings({ user, cookie, setTrigger }) {
             sessionID: cookie,
             password: _password
         }).then(response => {
-            dispatcher({message: response.data.message, title: 'Alert', type: response.data.success})
+            dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
             if (response.data.success) {
                 accountModal(false)
                 setTrigger(true)
@@ -141,7 +140,7 @@ function Settings({ user, cookie, setTrigger }) {
                 navigate('/')
             }
         }).catch(error => {
-            dispatcher({message: 'Error', title: 'Alert', type: false})
+            dispatcher({ message: 'Error', title: 'Alert', type: false })
         })
     }
 
@@ -195,13 +194,26 @@ function Settings({ user, cookie, setTrigger }) {
         }
     }
 
-    // function test() {
-    //     axios.get(`${api.url}/api/product/random?lang=en`).then(response => {
-    //         console.log(response.data);
-    //     })
-    // }
+    function test(e) {
+        e.preventDefault()
 
-    // test()
+        let formData = new FormData()
+        formData.append('images', testimg)
+        formData.append('name', 'Pharrell Williams x Adidas')
+        formData.append('code', 'pharrell_williams_adidas')
+        formData.append('description', 'Skateboard P has been a mainstay in the adidas roster for years now. A prolific producer, songwriter, musician, designer and cultural tastemaker, the collaboration started with court classics like the Stan Smith, before Pharrell introduced his technicolor Superstar pack, which included a staggering 50 colorways.')
+        formData.append('sessionID', cookie)
+        axios({
+            url: `${api.url}/api/collections/add?lang=en`,
+            method: 'post',
+            data: formData
+        }).then(response => {
+            console.log(response);
+            dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
+        }).catch(error => {
+            dispatcher({ message: 'Error', title: 'Alert', type: false })
+        })
+    }
 
     return (
         <section className="settings">
@@ -363,6 +375,10 @@ function Settings({ user, cookie, setTrigger }) {
                     }
                 </div >
             </div >
+            <input onChange={(e) => {
+                settsetimg(e.target.files[0])
+            }} type="file" className="" />
+            <button onClick={(e) => test(e)}>awfawf</button>
         </section >
     )
 }

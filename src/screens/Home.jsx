@@ -1,8 +1,11 @@
 import { Helmet } from "react-helmet"
-import { useCookie } from "../hooks"
 import Loading from "./Loading"
+import { useLanguage } from "../hooks"
+import { Hero } from "../components/home"
 
 function Home({ user, userLoading }) {
+
+    const language = useLanguage({ user })
 
     return (
         <>
@@ -13,7 +16,9 @@ function Home({ user, userLoading }) {
             {
                 userLoading ?
                     (
-                        <h1 className="inner">FAwf</h1>
+                        <>
+                            <Hero language={language} user={user} />
+                        </>
                     )
                     :
                     <Loading />

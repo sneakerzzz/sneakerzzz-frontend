@@ -1,8 +1,6 @@
 import { useLanguage } from "../../hooks"
 
-function Payment({ user, cookie }) {
-
-    const language = useLanguage({user})
+function Payment({ user, cookie, language }) {
 
     return (
         <section className="payment">

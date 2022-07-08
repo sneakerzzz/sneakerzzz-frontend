@@ -7,15 +7,13 @@ import { useNavigate } from "react-router-dom"
 import images from "../../constans/images"
 import { useContext } from "react"
 import { GlobalContext } from "../../context/GlobalState"
+import {responseHandler} from "../../hooks"
 
-function Sidebar({ user, cookie }) {
-    const language = useLanguage({ user })
-    const [requestResult, setRequestResult] = useState({})
-    console.log(requestResult);
-
-    const {removeCookie, removeUser} = useContext(GlobalContext)
+function Sidebar({ user, cookie, language }) {
+    const {removeCookie} = useContext(GlobalContext)
 
     const history = useNavigate()
+    const dispatcher = responseHandler()
 
     const links = [
         {
@@ -32,28 +30,17 @@ function Sidebar({ user, cookie }) {
 
     function deleteSessionRequest(e) {
         e.preventDefault()
-        setRequestResult({})
         axios.post(`${api.url}/api/account/delete-session?lang=${language.lang}`, {
             sessionID: cookie
         }).then(response => {
-            console.log(response);
+            dispatcher({message: response.data.message, title: 'Alert', type: response.data.success})
             if (response.data.success) {
-                if (response.data.message === 'Session was deleted successfully') {
-                    setRequestResult({ message: language.notification.successfulLogin, success: true })
-                }
-                removeUser(user)
                 removeCookie(cookie)
                 history('/login')
-            } else {
-                if (response.data.message === 'Error') {
-                    setRequestResult({ message: language.notification.error, success: false })
-                }
-                if (response.data.message === 'Missing fields') {
-                    setRequestResult({ message: language.notification.missingFields, success: false })
-                }
             }
         }).catch(error => {
-            setRequestResult({ message: language.notification.serverIsNotAvailable, success: false })
+            console.log(error);
+            dispatcher({message: 'Error', title: 'Alert', type: false})
         })
     }
 

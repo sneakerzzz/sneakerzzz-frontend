@@ -3,7 +3,7 @@ import AppReducer from "./AppReducer";
 
 const initialState = {
     cookie: localStorage.getItem('cookie') ? localStorage.getItem('cookie') : null,
-    user: localStorage.getItem('user') ? localStorage.getItem('user') : null
+    favouritesList: localStorage.getItem('favouritesList') ? JSON.parse(localStorage.getItem('favouritesList')) : [],
 }
 
 export const GlobalContext = createContext(initialState)
@@ -14,7 +14,7 @@ export const GlobalProvider = (props) => {
     useEffect(() => {
         console.log(state.cookies);
         localStorage.setItem('cookie', state.cookie)
-        localStorage.setItem('user', state.user)
+        localStorage.setItem('favouritesList', JSON.stringify(state.favouritesList))
     }, [state])
 
     const setCookie = (cookie) => {
@@ -27,18 +27,17 @@ export const GlobalProvider = (props) => {
         dispatch({ type: "REMOVE_COOKIE", payload: cookie })
     }
 
-    const setUser = (user) => {
-        console.log(user);
-        dispatch({ type: "SET_USER", payload: user })
+    const addToFavouritesList = (product) => {
+        dispatch({ type: "ADD_TO_FAVOURITES_LIST", payload: product })
     }
 
-    const removeUser = (user) => {
-        console.log(user);
-        dispatch({ type: "REMOVE_USER", payload: user })
+    const removeFromFavouritesList = (card_code) => {
+        dispatch({ type: "REMOVE_FROM_FAVOURITES_LIST", payload: card_code })
     }
+
 
     return (
-        <GlobalContext.Provider value={{ cookie: state.cookie, user: state.user, setCookie, removeCookie, setUser, removeUser }} >
+        <GlobalContext.Provider value={{ cookie: state.cookie, setCookie, removeCookie, favouritesList: state.favouritesList, addToFavouritesList, removeFromFavouritesList }} >
             {props.children}
         </GlobalContext.Provider>
     )

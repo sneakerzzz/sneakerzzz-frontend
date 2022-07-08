@@ -133,6 +133,7 @@ aside {
 
 
 .login {
+    padding-left: 340px;
     &__form {
         max-width: 600px;
 
@@ -154,6 +155,7 @@ aside {
 }
 
 .register {
+    padding-left: 340px;
     &__form {
         max-width: 600px;
 
@@ -236,6 +238,7 @@ header {
 }
 
 .settings {
+    padding-left: 340px;
     &__down {
         margin-top: 30px;
         display: flex;
@@ -480,6 +483,47 @@ header {
     
         100% {
             margin-left: 120%;
+        }
+    }
+}
+
+.hero{
+    &__collection{
+        padding: $pd_block;
+        width: 100%;
+        height: 550px;
+        position: relative;
+        border-radius: 20px;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        &-img{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            & img{
+                width: 100%;
+                height: 100%;
+                opacity: 0.5;
+            }
+            &::before{
+                content: '';
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                // background-color: $primary_color;
+            }
+        }
+        &-content{
+            padding: $pd-block;
+            // background-color: $bg_color;
+            // width: 600px;
+            text-align: center;
         }
     }
 }
