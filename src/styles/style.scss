@@ -113,6 +113,7 @@ aside {
             width: 30px;
             height: 30px;
             font-size: $p_font_size;
+
             &.active {
                 background-color: $primary_color;
                 color: $bg_color;
@@ -134,6 +135,7 @@ aside {
 
 .login {
     padding-left: 340px;
+
     &__form {
         max-width: 600px;
 
@@ -156,6 +158,7 @@ aside {
 
 .register {
     padding-left: 340px;
+
     &__form {
         max-width: 600px;
 
@@ -207,38 +210,74 @@ header {
     z-index: $z_fixed;
     background-color: $bg_color;
 
-    & .header__inner {
-        height: 110px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    & .header__account {
-        position: relative;
-
-        &-img {
+    & .header {
+        &__inner {
+            height: 110px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+        }
 
-            & img {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
+        &__account {
+            position: relative;
+
+            &-img {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                & img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                }
             }
         }
-    }
 
-    & .header__logo {
-        &-title {
-            margin-bottom: 0;
+        &__logo {
+            &-title {
+                margin-bottom: 0;
+            }
+        }
+
+        &__cart {
+            margin-right: 30px;
+
+            &-img {
+                & svg {
+                    width: 27px;
+                    height: 27px;
+                }
+            }
+        }
+
+        &__favourites {
+            margin-right: 25px;
+
+            &-img {
+                & svg {
+                    width: 27px;
+                    height: 27px;
+                }
+            }
+        }
+
+        &__right {
+            display: flex;
+            align-items: center;
         }
     }
 }
 
 .settings {
+    &__inner {
+        &.inner {
+            padding: $pd_medium_bottom;
+        }
+    }
+
     padding-left: 340px;
+
     &__down {
         margin-top: 30px;
         display: flex;
@@ -433,7 +472,7 @@ header {
     }
 }
 
-.notification{
+.notification {
     background-color: $primary_color;
     padding: 20px 25px;
     border-radius: 12px;
@@ -441,88 +480,143 @@ header {
     width: 300px;
     animation: left 0.4s;
     animation-fill-mode: forwards;
-    &:last-child{
+
+    &:last-child {
         margin-bottom: 0;
     }
-    &__title{
+
+    &__title {
         margin-bottom: 7px;
-        h1{
+
+        h1 {
             color: $bg_color;
         }
     }
-    &__info{
-        p{
+
+    &__info {
+        p {
             color: $secondary_color;
         }
     }
-    &__list{
+
+    &__list {
         position: fixed;
         bottom: 20px;
         right: 20px;
         width: 300px;
         z-index: 999;
     }
-    &.exit{
+
+    &.exit {
         animation: right 0.4s;
         animation-fill-mode: forwards;
     }
+
+    &__line{
+        height: 4px;
+        border-radius: 20px;
+        background-color: $bg_color;
+        margin-top: 10px;
+    }
+
     @keyframes left {
         0% {
             margin-left: 120%;
         }
-    
+
         100% {
             margin-left: 0;
         }
     }
-    
+
     @keyframes right {
         0% {
             margin-left: 0;
         }
-    
+
         100% {
             margin-left: 120%;
         }
     }
 }
 
-.hero{
-    &__collection{
-        padding: $pd_block;
+.hero {
+    &__inner {
+        &.inner {
+            padding: $pd_medium_bottom;
+        }
+    }
+
+    &__collection {
+        // padding: 40px 60px;
         width: 100%;
-        height: 550px;
-        position: relative;
-        border-radius: 20px;
-        // display: flex;
-        // align-items: center;
-        // justify-content: center;
-        &-img{
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            & img{
-                width: 100%;
-                height: 100%;
-                opacity: 0.5;
-            }
-            &::before{
-                content: '';
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                // background-color: $primary_color;
+        display: none;
+
+        &.active {
+            display: block;
+        }
+
+        &-img {
+            & img {
+                border-radius: 20px;
             }
         }
-        &-content{
-            padding: $pd-block;
-            // background-color: $bg_color;
-            // width: 600px;
+    }
+
+    &__collections {
+        position: relative;
+
+        &-arrow {
+
+            &_left,
+            &_right {
+                width: 50px;
+                height: 50px;
+                background-color: $bg_color;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                border-radius: 50%;
+                top: 50%;
+                position: absolute;
+                transform: translateY(-50%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                & svg {
+                    width: 20px;
+                    height: 20px;
+                    fill: $secondary_color;
+                    transition: 0.3s ease-in-out;
+                }
+
+                &:hover{
+                    & svg{
+                        fill: $primary_color;
+                    }
+                }
+            }
+
+            &_left {
+                left: -25px;
+
+                & svg {
+                    transform: rotate(180deg);
+                }
+            }
+
+            &_right {
+                right: -25px;
+            }
+        }
+    }
+}
+
+.trendings {
+
+    // background-color: $bg_color_lighter;
+    &__title {
+        &.title {
             text-align: center;
         }
     }

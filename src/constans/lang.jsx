@@ -104,6 +104,11 @@ const lang = [
             buttons: {
                 signout: 'Sign out'
             }
+        },
+        home: {
+            trendings: {
+                title: 'Trendings'
+            }
         }
     },
     {
@@ -210,6 +215,11 @@ const lang = [
             },
             buttons: {
                 signout: 'Выйти'
+            }
+        },
+        home: {
+            trendings: {
+                title: 'Популярное'
             }
         }
     }

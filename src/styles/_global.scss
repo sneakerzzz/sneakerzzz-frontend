@@ -48,7 +48,7 @@
 }
 
 .inner{
-    padding: $pd-big;
+    padding: $pd_medium;
     &-mini{
         padding: $pd-block;
     }
@@ -62,4 +62,8 @@ section{
     &.loading{
         padding-left: 0;
     }
+}
+
+main{
+    padding-top: 120px;
 }

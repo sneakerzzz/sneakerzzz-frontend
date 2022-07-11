@@ -2,11 +2,13 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import api from "../../constans/api"
 import { responseHandler } from "../../hooks"
+import images from "../../constans/images"
 
 function Hero({ language, user }) {
 
     const [collections, setCollections] = useState()
     const [collectionsLoading, setCollectionsLoading] = useState(false)
+    const [collectionIndex, setCollectionIndex] = useState(0)
     const dispatcher = responseHandler()
 
     function getRequest() {
@@ -26,6 +28,7 @@ function Hero({ language, user }) {
     useEffect(() => {
         getRequest()
     }, [])
+    console.log(collectionIndex);
 
     return (
         <section className="hero">
@@ -39,21 +42,37 @@ function Hero({ language, user }) {
                                         (
                                             collections.length > 0 ?
                                                 (
-                                                    collections.map((collection, key) => (
-                                                        <div className="hero__collection" key={key}>
-                                                            <div className="hero__collection-content">
-                                                                <div className="hero__collection-title title">
-                                                                    <h1>{collection.name}</h1>
+                                                    <>
+                                                        {
+                                                            collectionIndex > 0 ?
+                                                                (
+                                                                    <div onClick={() => setCollectionIndex(collectionIndex - 1)} className="hero__collections-arrow_left">
+                                                                        {images.arrowLeft}
+                                                                    </div>
+                                                                )
+                                                                :
+                                                                null
+                                                        }
+                                                        {
+                                                            collections.map((collection, key) => (
+                                                                <div className={collectionIndex === key ? "hero__collection active" : "hero__collection"} key={key} title={collection.name}>
+                                                                    <div className="hero__collection-img">
+                                                                        <img src={`${api.url}/${collection.images[0]}`} alt="" />
+                                                                    </div>
                                                                 </div>
-                                                                <div className="hero__collection-info info">
-                                                                    <p>{collection.description}</p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="hero__collection-img">
-                                                                <img src={`${api.url}/${collection.images[0]}`} alt="" />
-                                                            </div>
-                                                        </div>
-                                                    ))
+                                                            ))
+                                                        }
+                                                        {
+                                                            collectionIndex + 1 < collections.length ?
+                                                                (
+                                                                    <div onClick={() => setCollectionIndex(collectionIndex + 1)} className="hero__collections-arrow_right">
+                                                                        {images.arrowRight}
+                                                                    </div>
+                                                                )
+                                                                :
+                                                                null
+                                                        }
+                                                    </>
                                                 )
                                                 :
                                                 null
