@@ -1,6 +1,7 @@
 import api from "../../constans/api"
 import { Link } from "react-router-dom"
 import { useLanguage } from "../../hooks"
+import images from "../../constans/images"
 
 function Header({ user, userLoading }) {
 
@@ -18,9 +19,16 @@ function Header({ user, userLoading }) {
                         </div>
                     </div>
                     <div className="header__right">
-                        <div className="header__cart">
-
-                        </div>
+                        <Link to="/favourites" className="header__favourites">
+                            <div className="header__favourites-img">
+                                {images.favourites}
+                            </div>
+                        </Link>
+                        <Link to="/cart" className="header__cart">
+                            <div className="header__cart-img">
+                                {images.cart}
+                            </div>
+                        </Link>
                         {
                             userLoading ?
                                 (

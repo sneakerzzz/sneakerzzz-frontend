@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet"
 import Loading from "./Loading"
 import { useLanguage } from "../hooks"
-import { Hero } from "../components/home"
+import { Hero, Trendings } from "../components/home"
 
 function Home({ user, userLoading }) {
 
@@ -18,6 +18,7 @@ function Home({ user, userLoading }) {
                     (
                         <>
                             <Hero language={language} user={user} />
+                            <Trendings language={language} />
                         </>
                     )
                     :

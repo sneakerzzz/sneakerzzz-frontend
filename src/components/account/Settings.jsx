@@ -199,12 +199,12 @@ function Settings({ user, cookie, setTrigger, language }) {
 
         let formData = new FormData()
         formData.append('images', testimg)
-        formData.append('name', 'Pharrell Williams x Adidas')
-        formData.append('code', 'pharrell_williams_adidas')
-        formData.append('description', 'Skateboard P has been a mainstay in the adidas roster for years now. A prolific producer, songwriter, musician, designer and cultural tastemaker, the collaboration started with court classics like the Stan Smith, before Pharrell introduced his technicolor Superstar pack, which included a staggering 50 colorways.')
+        formData.append('name', 'Adidas x Kermit')
+        formData.append('code', 'adidas_kermit')
+        formData.append('description', 'Легендарный Кермит с Маппет шоу пришел для того чтобы сделать коллаборацию с Adidas Stan Smith.')
         formData.append('sessionID', cookie)
         axios({
-            url: `${api.url}/api/collections/add?lang=en`,
+            url: `${api.url}/api/collections/add?lang=ru`,
             method: 'post',
             data: formData
         }).then(response => {

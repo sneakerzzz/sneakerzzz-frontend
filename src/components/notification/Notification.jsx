@@ -57,6 +57,7 @@ function Notification(props) {
                     <div className="notification__info">
                         <p>{props.message}</p>
                     </div>
+                    <div style={{width: `${width}%`}} className="notification__line"></div>
                 </div>
             )
             :
