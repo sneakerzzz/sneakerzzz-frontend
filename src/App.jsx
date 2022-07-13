@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { Login, Register, Account, Home, Catalog, Favourites, Cart } from './screens';
+import { Login, Register, Account, Home, Catalog, Favourites, Cart, Product } from './screens';
 import { Header } from './components/navigation';
 import './styles/style.scss'
 import './styles/adaptive.scss'
@@ -21,6 +21,7 @@ function App() {
           <Route path='/account/*' element={<Account user={user} userLoading={userLoading} cookie={cookie} setTrigger={setTrigger} />} />
           <Route path='/favourites' element={<Favourites user={user} userLoading={userLoading} />} />  
           <Route path='/cart' element={<Cart user={user} userLoading={userLoading} />} />  
+          <Route path='/product/:id' element={<Product />} />
           <Route path="*" />
         </Routes>
       </main>

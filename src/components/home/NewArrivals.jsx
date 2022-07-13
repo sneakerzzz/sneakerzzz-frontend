@@ -4,23 +4,23 @@ import api from "../../constans/api"
 import { responseHandler } from "../../hooks"
 import Product from "../Product"
 
-function Trendings({ language }) {
+function NewArrivals({ language }) {
 
-    const [trendings, setTrendings] = useState()
-    const [trendingsLoading, setTrendingsLoading] = useState(false)
+    const [newArrivals, setNewArrivals] = useState()
+    const [newArrivalsLoading, setNewArrivalsLoading] = useState(false)
     const [page, setPage] = useState(1)
     const dispatcher = responseHandler()
 
     function getRequest() {
-        setTrendingsLoading(false)
-        axios.get(`${api.url}/api/products/trendings?lang=${language.lang}&limit=6&page=${page}`).then(response => {
+        setNewArrivalsLoading(false)
+        axios.get(`${api.url}/api/products/new_arrivals?lang=${language.lang}&limit=6&page=${page}`).then(response => {
             dispatcher({ message: response.data.message, title: 'Alert', type: response.data.success })
             if (response.data.success) {
-                setTrendings(response.data.data)
-                setTrendingsLoading(true)
+                setNewArrivals(response.data.data)
+                setNewArrivalsLoading(true)
             }
         }).catch(error => {
-            setTrendingsLoading(true)
+            setNewArrivalsLoading(true)
             dispatcher({ message: 'Error', title: 'Alert', type: false })
         })
     }
@@ -30,21 +30,21 @@ function Trendings({ language }) {
     }, [])
 
     return (
-        <section className="trendings">
+        <section className="newarrivals">
             <div className="container">
-                <div className="trendings__inner inner">
-                    <div className="trendings__title title">
-                        <h2>{language.home.trendings.title}</h2>
+                <div className="newarrivals__inner inner">
+                    <div className="newarrivals__title title">
+                        <h2>{language.home.newArrivals.title}</h2>
                     </div>
-                    <div className="trendings__list list">
+                    <div className="newarrivals__list list">
                         {
-                            trendingsLoading ?
+                            newArrivals ?
                                 (
-                                    trendings ?
+                                    newArrivalsLoading ?
                                         (
-                                            trendings.length > 0 ?
+                                            newArrivals.length > 0 ?
                                                 (
-                                                    trendings.map((product) => (
+                                                    newArrivals.map((product) => (
                                                         <Product product={product} language={language} />
                                                     ))
                                                 )
@@ -64,4 +64,4 @@ function Trendings({ language }) {
     )
 }
 
-export default Trendings
+export default NewArrivals

@@ -18,7 +18,7 @@ function AppReducer(state, action) {
         case "REMOVE_FROM_FAVOURITES_LIST":
             return {
                 ...state,
-                favouritesList: state.favouritesList.filter((product) => product.defaultArticle.code !== action.payload),
+                favouritesList: state.favouritesList.filter((product) => product._id !== action.payload),
             }
         default:
             return state

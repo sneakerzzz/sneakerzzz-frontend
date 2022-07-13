@@ -108,7 +108,14 @@ const lang = [
         home: {
             trendings: {
                 title: 'Trendings'
+            },
+            newArrivals: {
+                title: 'New Arrivals'
             }
+        },
+        product: {
+            colors: 'Colors:',
+            price: 'Price:'
         }
     },
     {
@@ -220,7 +227,14 @@ const lang = [
         home: {
             trendings: {
                 title: 'Популярное'
+            },
+            newArrivals: {
+                title: 'Новинки'
             }
+        },
+        product: {
+            colors: 'Цвета:',
+            price: 'Цена:'
         }
     }
 ]

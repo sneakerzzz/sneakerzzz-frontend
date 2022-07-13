@@ -32,7 +32,7 @@ function Hero({ language, user }) {
 
     return (
         <section className="hero">
-            <div className="container">
+            <div className="container-fluid">
                 <div className="hero__inner inner">
                     <div className="hero__collections">
                         {

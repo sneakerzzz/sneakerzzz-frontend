@@ -3,6 +3,12 @@
 .container{
     margin: $mb_auto;
     padding: 0 $pd_block;
+    max-width: 1230px;
+}
+
+.container-fluid{
+    margin: $mb_auto;
+    padding: 0 $pd_block;
     max-width: 1530px;
 }
 
@@ -65,5 +71,13 @@ section{
 }
 
 main{
-    padding-top: 120px;
+    padding-top: 140px;
+}
+
+.list{
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
